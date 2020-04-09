@@ -1,16 +1,29 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { TodoContext } from '../../App';
+import { Button } from 'antd';
 
 export const Complete = ({ record }) => {
   const [, dispatchTodos] = useContext(TodoContext);
+  const [hidden, setHidden] = useState(false);
   return (
-    <a
-      href="#complete"
-      onClick={() => {
-        dispatchTodos({ type: 'COMPLETE_TODO', payload: record.key });
-      }}
-    >
-      <span>Complete</span>
-    </a>
-  );
+    <div style={{ display: 'inline', marginRight: '5px'}}>
+      {
+        hidden ? (null) :
+          (
+            <Button href="#complete"
+              type="primary"
+              style={{width: '100px'}}
+              onClick={
+                () => {
+                  setHidden(true);
+                  dispatchTodos({ type: 'COMPLETE_TODO', payload: record.key });
+                }
+              }
+            >
+              {hidden ? '' : 'Complete'}
+            </Button >
+          )
+      }
+    </div>
+  )
 };
