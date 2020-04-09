@@ -24,7 +24,7 @@ export const TodoForm = (props) => {
 
   const formSubmit = () => {
     if (form && date && category && form.length >= 5) {
-      if (props.todos.filter(e => e.title === form && e.date === date && e.category === category.value).length === 0) {
+      if (props.todos.filter(e => e.title === form && e.date === date && e.category === category.value && e.completed === 'false').length === 0) {
         dispatchTodos({ type: "ADD_TODO", payload: [form, date, category] });
         setExistedError(false);
       } else {
