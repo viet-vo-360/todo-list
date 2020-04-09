@@ -18,7 +18,7 @@ const App = () => {
     <TodoContext.Provider value={[todos, dispatchTodos]}>
       <Row type="flex" justify="center">
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-          <Table dataSource={todos} columns={FORM_COLUMNS} />
+          <Table dataSource={todos} columns={FORM_COLUMNS} pagination={{ pageSize: 5 }} />
         </Col>
       </Row>
       <Row type="flex" justify="center">
