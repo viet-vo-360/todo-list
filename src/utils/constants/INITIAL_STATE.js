@@ -14,6 +14,7 @@ export const FORM_INITIAL_STATE = [
     title: 'Organize party with Hurricane team',
     date: '2020-04-16',
     completed: 'false',
+    category: 'Entertainment',
     dataIndex: 0,
   },
   {
@@ -21,6 +22,7 @@ export const FORM_INITIAL_STATE = [
     title: 'Go study English at the Center',
     date: '2020-04-14',
     completed: 'false',
+    category: 'Work',
     dataIndex: 0,
   },
   {
@@ -28,6 +30,7 @@ export const FORM_INITIAL_STATE = [
     title: 'Have an appointment with a doctor at the hospital',
     date: '2020-04-20',
     completed: 'false',
+    category: 'Other',
     dataIndex: 0,
   },
   {
@@ -35,6 +38,7 @@ export const FORM_INITIAL_STATE = [
     title: 'Go to the supermarket',
     date: '2020-04-20',
     completed: 'false',
+    category: 'Shopping',
     dataIndex: 0,
   }
 ];

@@ -12,11 +12,11 @@ export const categories = [
     title: "Entertainment"
   },
   {
-    value: "Groceries",
-    title: "Groceries"
-  },
-  {
     value: "Shopping",
     title: "Shopping"
+  },
+  {
+    value: "Other",
+    title: "Other"
   },
 ];
