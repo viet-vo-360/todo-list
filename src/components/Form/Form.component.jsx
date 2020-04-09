@@ -1,12 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { Button, Form, Row, Typography } from 'antd';
+import React, { useState, useContext } from "react";
+import { Button, Form, Row, Typography } from "antd";
 
-import { openNotification } from '../../utils/functions/openNotification';
+import { openNotification } from "../../utils/functions/openNotification";
 
-import { Calendar } from './Calendar.component';
-import { FormInput } from './FormInput.component';
+import { Calendar } from "./Calendar.component";
+import { FormInput } from "./FormInput.component";
+import { Category } from "./Category.component";
 
-import { TodoContext } from '../../App';
+import { TodoContext } from "../../App";
 
 const { Title } = Typography;
 
@@ -14,15 +15,17 @@ export const TodoForm = () => {
   // Could replace useState with useReducer but I decided to keep things simple
   const [form, setForm] = useState();
   const [date, setDate] = useState();
+  const [category, setCategory] = useState();
   const [, dispatchTodos] = useContext(TodoContext);
 
   const hasDate = date ? true : false;
+  const hasCategory = category ? true : false;
 
   const formSubmit = () => {
-    if (form && date && form.length >= 5) {
-      dispatchTodos({ type: 'ADD_TODO', payload: [form, date] });
+    if (form && date && category && form.length >= 5) {
+      dispatchTodos({ type: "ADD_TODO", payload: [form, date, category] });
     } else {
-      openNotification('bottomLeft', 'Title must be a minimum of 5 letters');
+      openNotification("bottomLeft", "Title must be a minimum of 5 letters");
     }
   };
 
@@ -34,13 +37,20 @@ export const TodoForm = () => {
         </Title>
         <Row type="flex" justify="center">
           <FormInput data-testid="todo" setForm={setForm} />
-          {form && form.length >= 5 ? <Calendar setDate={setDate} /> : null}
+          {form && form.length >= 5 ? (
+            <>
+              <Calendar setDate={setDate} />
+              <Category setCategory={setCategory} />
+            </>
+          ) : null}
           {form && form.length < 5 ? (
-            <Title className="TitleLength" type="danger" level={4}>Length must be more than 5</Title>
+            <Title className="TitleLength" type="danger" level={4}>
+              Length must be more than 5
+            </Title>
           ) : null}
         </Row>
         <Row>
-          <Button type="primary" htmlType="submit" block disabled={!hasDate}>
+          <Button type="primary" htmlType="submit" block disabled={!hasDate || !hasCategory}>
             Add TODO
           </Button>
         </Row>

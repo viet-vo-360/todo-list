@@ -24,6 +24,15 @@ export const FORM_COLUMNS = [
   },
 
   {
+    title: 'Category',
+    dataIndex: 'category',
+    key: 'category',
+    render: (text, record) => {
+      return <Title record={record}>{text}</Title>;
+    },
+  },
+
+  {
     title: 'Action',
     key: 'action',
     dataIndex: 'action',
