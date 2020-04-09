@@ -11,19 +11,25 @@ import { TodoContext } from "../../App";
 
 const { Title } = Typography;
 
-export const TodoForm = () => {
+export const TodoForm = (props) => {
   // Could replace useState with useReducer but I decided to keep things simple
   const [form, setForm] = useState();
   const [date, setDate] = useState();
   const [category, setCategory] = useState();
   const [, dispatchTodos] = useContext(TodoContext);
+  const [existedError, setExistedError] = useState(false);
 
   const hasDate = date ? true : false;
   const hasCategory = category ? true : false;
 
   const formSubmit = () => {
     if (form && date && category && form.length >= 5) {
-      dispatchTodos({ type: "ADD_TODO", payload: [form, date, category] });
+      if (props.todos.filter(e => e.title === form && e.date === date && e.category === category.value).length === 0) {
+        dispatchTodos({ type: "ADD_TODO", payload: [form, date, category] });
+        setExistedError(false);
+      } else {
+        setExistedError(true);
+      }
     } else {
       openNotification("bottomLeft", "Title must be a minimum of 5 letters");
     }
@@ -47,7 +53,11 @@ export const TodoForm = () => {
             <Title className="TitleLength" type="danger" level={4}>
               Length must be more than 5
             </Title>
-          ) : null}
+          ) : existedError ? (
+            <Title className="TitleLength" type="danger" level={4}>
+              Task is duplicated
+            </Title>
+          ): (null)}
         </Row>
         <Row>
           <Button type="primary" htmlType="submit" block disabled={!hasDate || !hasCategory}>
