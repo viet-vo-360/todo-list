@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useState } from 'react';
 import { Table, Row, Col } from 'antd';
 
 import 'antd/dist/antd.css';
@@ -21,19 +21,30 @@ const App = () => {
     defaultPageSize: pageSize,
     current: currentPage,
     showSizeChanger: true,
-    showQuickJumper: true
+    showQuickJumper: true,
   };
+  const [selectionType] = useState('checkbox');
 
   return (
     <TodoContext.Provider value={[todos, dispatchTodos]}>
-      <Row type="flex" justify="center">
+      <Row type='flex' justify='center'>
         <Col xs={24} sm={24} md={24} lg={20} xl={20}>
-          <Table dataSource={todos} columns={FORM_COLUMNS} pagination={tablePagination} />
+          <Table
+            dataSource={todos}
+            columns={FORM_COLUMNS}
+            pagination={tablePagination}
+            rowSelection={{
+              type: selectionType,
+              onChange: (selectedRowKeys, selectedRows) => {
+                dispatchTodos({ type: 'CHECKBOX_ON_CHANGE', payload: selectedRowKeys });
+              },
+            }}
+          />
         </Col>
       </Row>
-      <Row type="flex" justify="center">
+      <Row type='flex' justify='center'>
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-          <TodoForm todos={todos}/>
+          <TodoForm todos={todos} />
         </Col>
       </Row>
     </TodoContext.Provider>
