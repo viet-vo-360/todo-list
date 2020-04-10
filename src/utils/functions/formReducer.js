@@ -13,12 +13,11 @@ export function todoReducer(state, action) {
         category: category.value,
         key: uuidv4(),
         completed: 'false',
-        isChecked: 'false'
       });
     case 'COMPLETE_TODO':
       openNotification('bottomLeft', 'TODO completed');
       return state.map((todo) => {
-        if (todo.key === action.payload || todo.isChecked === 'true') {
+        if (todo.key === action.payload) {
           return {
             ...todo,
             completed: 'true',
@@ -29,21 +28,7 @@ export function todoReducer(state, action) {
       });
     case 'DELETE_TODO':
       openNotification('bottomLeft', 'TODO deleted');
-      return state.filter((item) => item.key !== action.payload && item.isChecked !== 'true');
-    case 'CHECKBOX_ON_CHANGE':
-      return state.map((todo) => {
-        if (action.payload.includes(todo.key)) {
-          return {
-            ...todo,
-            isChecked: 'true',
-          };
-        } else {
-          return {
-            ...todo,
-            isChecked: 'false',
-          };
-        }
-      });
+      return state.filter((item) => item.key !== action.payload);
     default:
       openNotification('bottomLeft', 'An error has occured!');
       throw new Error();

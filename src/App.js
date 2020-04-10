@@ -23,23 +23,12 @@ const App = () => {
     showSizeChanger: true,
     showQuickJumper: true,
   };
-  const [selectionType] = useState('checkbox');
 
   return (
     <TodoContext.Provider value={[todos, dispatchTodos]}>
       <Row type='flex' justify='center'>
         <Col xs={24} sm={24} md={24} lg={20} xl={20}>
-          <Table
-            dataSource={todos}
-            columns={FORM_COLUMNS}
-            pagination={tablePagination}
-            rowSelection={{
-              type: selectionType,
-              onChange: (selectedRowKeys, selectedRows) => {
-                dispatchTodos({ type: 'CHECKBOX_ON_CHANGE', payload: selectedRowKeys });
-              },
-            }}
-          />
+          <Table dataSource={todos} columns={FORM_COLUMNS} pagination={tablePagination} />
         </Col>
       </Row>
       <Row type='flex' justify='center'>
