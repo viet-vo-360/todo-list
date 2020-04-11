@@ -14,6 +14,7 @@ export const Delete = ({ record }) => {
       }}
     >
       <Button href="#delete"
+        className="btn-delete"
         type="primary"
         danger
         style={{ width: '100px' }}

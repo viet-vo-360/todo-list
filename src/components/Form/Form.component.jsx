@@ -60,7 +60,7 @@ export const TodoForm = (props) => {
           ): (null)}
         </Row>
         <Row>
-          <Button type="primary" htmlType="submit" block disabled={!hasDate || !hasCategory}>
+          <Button type="primary" id="btn-add-task" htmlType="submit" block disabled={!hasDate || !hasCategory}>
             Add TODO
           </Button>
         </Row>
