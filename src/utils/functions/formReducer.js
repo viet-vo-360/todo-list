@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { openNotification } from './openNotification';
 
 export function todoReducer(state, action) {
-  const [title, date, category] = action.payload;
+  const [title, date, category, isImportant] = action.payload;
 
   switch (action.type) {
     case 'ADD_TODO':
@@ -13,6 +13,7 @@ export function todoReducer(state, action) {
         category: category.value,
         key: uuidv4(),
         completed: 'false',
+        isImportant: isImportant
       });
     case 'COMPLETE_TODO':
       openNotification('bottomLeft', 'TODO completed');

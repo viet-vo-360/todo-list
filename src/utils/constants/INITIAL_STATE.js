@@ -7,6 +7,7 @@ export const FORM_INITIAL_STATE = [
     date: '2020-04-15',
     category: 'Work',
     completed: 'false',
+    isImportant: true,
     dataIndex: 0,
   },
   {
@@ -15,6 +16,7 @@ export const FORM_INITIAL_STATE = [
     date: '2020-04-20',
     completed: 'false',
     category: 'Shopping',
+    isImportant: false,
     dataIndex: 0,
   }
 ];

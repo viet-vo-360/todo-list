@@ -6,6 +6,7 @@ import { openNotification } from "../../utils/functions/openNotification";
 import { Calendar } from "./Calendar.component";
 import { FormInput } from "./FormInput.component";
 import { Category } from "./Category.component";
+import { Important } from "./Important.component";
 
 import { TodoContext } from "../../App";
 
@@ -15,6 +16,7 @@ export const TodoForm = (props) => {
   // Could replace useState with useReducer but I decided to keep things simple
   const [form, setForm] = useState();
   const [date, setDate] = useState();
+  const [isImportant, setImportant] = useState();
   const [category, setCategory] = useState();
   const [, dispatchTodos] = useContext(TodoContext);
   const [existedError, setExistedError] = useState(false);
@@ -25,7 +27,7 @@ export const TodoForm = (props) => {
   const formSubmit = () => {
     if (form && date && category && form.length >= 5) {
       if (props.todos.filter(e => e.title === form && e.date === date && e.category === category.value && e.completed === 'false').length === 0) {
-        dispatchTodos({ type: "ADD_TODO", payload: [form, date, category] });
+        dispatchTodos({ type: "ADD_TODO", payload: [form, date, category, isImportant] });
         setExistedError(false);
       } else {
         setExistedError(true);
@@ -47,6 +49,7 @@ export const TodoForm = (props) => {
             <>
               <Calendar setDate={setDate} />
               <Category setCategory={setCategory} />
+              <Important setImportant={setImportant}/>
             </>
           ) : null}
           {form && form.length < 5 ? (

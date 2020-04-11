@@ -28,7 +28,12 @@ const App = () => {
     <TodoContext.Provider value={[todos, dispatchTodos]}>
       <Row type='flex' justify='center'>
         <Col xs={24} sm={24} md={24} lg={20} xl={20}>
-          <Table dataSource={todos} columns={FORM_COLUMNS} pagination={tablePagination} />
+          <Table 
+          rowClassName = { (record) => record.isImportant ? 'important-task' : ''}
+          dataSource={todos} 
+          columns={FORM_COLUMNS} 
+          pagination={tablePagination} 
+          />
         </Col>
       </Row>
       <Row type='flex' justify='center'>
