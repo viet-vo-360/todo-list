@@ -7,6 +7,7 @@ const { Option } = Select;
 export const Category = ({ setCategory }) => (
   <Col>
     <Select
+      id="task-category"
       showSearch
       style={{ width: 200, marginLeft: '10px' }}
       placeholder="Select a category"

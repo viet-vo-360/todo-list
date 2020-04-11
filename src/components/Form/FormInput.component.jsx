@@ -9,6 +9,7 @@ export const FormInput = ({setForm}) => (
         prefix={
           <TagsOutlined /> // Icon
         }
+        id="task-tilte"
         onChange={e => {
           setForm(e.target.value);
         }}

@@ -13,6 +13,9 @@ export function todoReducer(state, action) {
         category: category.value,
         key: uuidv4(),
         completed: 'false',
+        checkbox: {
+          isChecked: false,
+        },
       });
     case 'COMPLETE_TODO':
       openNotification('bottomLeft', 'TODO completed');

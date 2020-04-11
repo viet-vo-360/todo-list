@@ -11,6 +11,7 @@ export const Complete = ({ record }) => {
         hidden ? (null) :
           (
             <Button href="#complete"
+              className="btn-complete"
               type="primary"
               style={{width: '100px'}}
               onClick={
