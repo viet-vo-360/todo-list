@@ -4,7 +4,7 @@ import { Button } from 'antd';
 
 export const Complete = ({ record }) => {
   const [, dispatchTodos] = useContext(TodoContext);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(record.completed === "true" ? true : false);
   return (
     <div style={{ display: 'inline', marginRight: '5px'}}>
       {
