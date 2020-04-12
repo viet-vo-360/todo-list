@@ -5,4 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let useMockData = new URLSearchParams(window.location.search).get('useMockData') || false;
+
+ReactDOM.render(<App useMockData={useMockData}/>, document.getElementById('root'));

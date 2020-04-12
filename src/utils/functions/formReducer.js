@@ -16,6 +16,8 @@ export function todoReducer(state, action) {
         isChecked: false,
         isImportant: isImportant,
       });
+    case "ADD_LIST_TODO":
+      return state === undefined ? [...action.payload] : [state, ...action.payload];
     case "COMPLETE_TODO":
       openNotification("bottomLeft", "TODO completed");
       return state.map((todo) => {
@@ -49,7 +51,6 @@ export function todoReducer(state, action) {
         selectedItem.map((sItem) => {
           state = state.filter((item) => item.key !== sItem.key);
         });
-        // state = state.filter((item) => selectedItem.indexOf(item));
       }
       return state;
 

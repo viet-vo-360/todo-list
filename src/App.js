@@ -1,4 +1,4 @@
-import React, { useReducer, createContext, useState } from "react";
+import React, { useReducer, createContext, useState, useEffect } from "react";
 import { Table, Row, Col } from "antd";
 
 import "antd/dist/antd.css";
@@ -9,16 +9,18 @@ import { todoReducer } from "./utils/functions/formReducer";
 
 import { FORM_INITIAL_STATE } from "./utils/constants/INITIAL_STATE";
 import { FORM_COLUMNS } from "./utils/constants/FORM_COLUMNS";
+import { SERVICE_URL } from "./utils/constants/SERVICE";
 
 import { CompleteBySelected } from "./components/Complete/CompleteBySelected.component";
 import { DeleteBySelected } from "./components/Delete/DeleteBySelected.component";
 
 export const TodoContext = createContext();
 
-const App = () => {
-  const [todos, dispatchTodos] = useReducer(todoReducer, FORM_INITIAL_STATE);
+const App = ({ useMockData }) => {
+  const [todosData, setTodosData] = useState();
+  const [todos, dispatchTodos] = useReducer(todoReducer, todosData);
   const pageSize = 5;
-  const currentPage = Math.ceil(todos.length / pageSize);
+  const currentPage =  todos && todos.length > 0 ? Math.ceil(todos.length / pageSize) : 1;
   const tablePagination = {
     pageSizeOptions: ["5", "10", "15"],
     defaultPageSize: pageSize,
@@ -27,9 +29,38 @@ const App = () => {
     showQuickJumper: true,
   };
   console.log("todos", todos);
+  useEffect(() => {
+    // const controller = new AbortController();
+    // const fetchData = () => {
+    //   try {
+    //     if (useMockData) {
+    //       dispatchTodos({ type: "ADD_LIST_TODO", payload: FORM_INITIAL_STATE });
+    //     } else {
+    //       getJsonDataFromAPI(SERVICE_URL, dispatchTodos);
+    //     }
+    //   } catch (error) {
+    //     console.error("Request was canceled via controller.abort");
+    //     return;
+    //   }
+    // }
+
+    // fetchData();
+    // return () => {
+    //   controller.abort();
+    // }
+    fetch(SERVICE_URL, {mode: 'no-cors'})
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log("responseJson", responseJson);
+      dispatchTodos({ type: "ADD_LIST_TODO", payload: responseJson });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
   return (
     <TodoContext.Provider value={[todos, dispatchTodos]}>
-      {todos.length > 0 && (
+      {todos && todos.length > 0 && (
         <Row type="flex" justify="center">
           <Col xs={24} sm={24} md={24} lg={20} xl={20}>
             <Table
@@ -43,7 +74,7 @@ const App = () => {
           </Col>
         </Row>
       )}
-      {todos.length > 0 && todos.filter((item) => item.isChecked).length > 0 && (
+      {todos && todos.length > 0 && todos.filter((item) => item.isChecked).length > 0 && (
         <Row type="flex" justify="right">
           <Col xs={24} sm={24} md={24} lg={20} xl={20}>
             <CompleteBySelected />
@@ -60,3 +91,14 @@ const App = () => {
   );
 };
 export default App;
+
+const getJsonDataFromAPI = (url, cb) => {
+  fetch(url, {mode: 'no-cors'})
+    .then((response) => response.json())
+    .then((responseJson) => {
+      cb({ type: "ADD_LIST_TODO", payload: responseJson });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
