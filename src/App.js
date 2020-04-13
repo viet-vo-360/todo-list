@@ -17,8 +17,7 @@ import { DeleteBySelected } from "./components/Delete/DeleteBySelected.component
 export const TodoContext = createContext();
 
 const App = ({ useMockData }) => {
-  const [todosData, setTodosData] = useState();
-  const [todos, dispatchTodos] = useReducer(todoReducer, todosData);
+  const [todos, dispatchTodos] = useReducer(todoReducer, []);
   const pageSize = 5;
   const currentPage =  todos && todos.length > 0 ? Math.ceil(todos.length / pageSize) : 1;
   const tablePagination = {
@@ -28,36 +27,17 @@ const App = ({ useMockData }) => {
     showSizeChanger: true,
     showQuickJumper: true,
   };
-  console.log("todos", todos);
   useEffect(() => {
-    // const controller = new AbortController();
-    // const fetchData = () => {
-    //   try {
-    //     if (useMockData) {
-    //       dispatchTodos({ type: "ADD_LIST_TODO", payload: FORM_INITIAL_STATE });
-    //     } else {
-    //       getJsonDataFromAPI(SERVICE_URL, dispatchTodos);
-    //     }
-    //   } catch (error) {
-    //     console.error("Request was canceled via controller.abort");
-    //     return;
-    //   }
-    // }
-
-    // fetchData();
-    // return () => {
-    //   controller.abort();
-    // }
-    fetch(SERVICE_URL, {mode: 'no-cors'})
+    fetch(SERVICE_URL)
     .then((response) => response.json())
-    .then((responseJson) => {
-      console.log("responseJson", responseJson);
-      dispatchTodos({ type: "ADD_LIST_TODO", payload: responseJson });
+      .then((responseJson) => {
+        dispatchTodos({ type: "ADD_LIST", list: JSON.parse(responseJson) });
     })
     .catch((error) => {
       console.error(error);
     });
   }, []);
+
   return (
     <TodoContext.Provider value={[todos, dispatchTodos]}>
       {todos && todos.length > 0 && (

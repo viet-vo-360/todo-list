@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -8,6 +10,7 @@ namespace TodoService.Controllers
     public class TodosController : Controller
     {
         // GET: Todos
+        [System.Web.Mvc.HttpGet]
         public JsonResult List()
         {
             List<Todos> todoList = new List<Todos>()
@@ -43,7 +46,11 @@ namespace TodoService.Controllers
                     IsChecked = false
                 }
             };
-            return Json(todoList, JsonRequestBehavior.AllowGet);
+
+            var camelCaseFormatter = new JsonSerializerSettings();
+            camelCaseFormatter.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            return Json(JsonConvert.SerializeObject(todoList, camelCaseFormatter), JsonRequestBehavior.AllowGet);
         }
     }
 }
