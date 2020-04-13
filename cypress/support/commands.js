@@ -23,3 +23,26 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/command';
+addMatchImageSnapshotCommand();
+
+const resizeObserverLoopErrRe = /^ResizeObserver loop limit exceeded/;
+
+Cypress.on('uncaught:exception', (err) => {
+  if (resizeObserverLoopErrRe.test(err.message)) {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false;
+  }
+});
+
+Cypress.Commands.add('addTask', ({ name, date, category, isImportant }) => {
+  cy.get('#task-tilte').type(name);
+  cy.get('.ant-picker-input > input').click().type(date);
+  cy.get('#task-category').click().type(category).type('{enter}');
+  if (isImportant) {
+    cy.get('.ant-checkbox-input').check();
+  }
+  cy.get('#btn-add-task').click();
+});

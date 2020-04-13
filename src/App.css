@@ -34,7 +34,7 @@ span[role='img'] {
 }
 
 .important-task {
-  background-color: lightyellow;
+  background-color: rgb(255, 255, 224);
 }
 
 #checkbox-important-task {
