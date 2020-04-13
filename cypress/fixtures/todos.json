@@ -1,0 +1,22 @@
+[
+  {
+    "key": "85bed8fc-dfa6-4790-824f-35562d9562a0",
+    "title": "Todo Mock Data 01",
+    "date": "2020-04-15",
+    "category": "Work",
+    "completed": false,
+    "isImportant": true,
+    "isChecked": false,
+    "dataIndex": 0
+  },
+  {
+    "key": "85bed8fc-dfa6-4790-824f-35562d9562a0",
+    "title": "Todo Mock Data 02",
+    "date": "2020-04-20",
+    "completed": false,
+    "category": "Shopping",
+    "isImportant": false,
+    "isChecked": false,
+    "dataIndex": 0
+  }
+]

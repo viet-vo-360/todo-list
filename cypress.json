@@ -1,1 +1,8 @@
-{}
+{
+  "baseUrl": "http://localhost:3000/",
+  "defaultCommandTimeout": 10000,
+  "pageLoadTimeout": 30000,
+  "ignoreTestFiles": [
+    "**/examples/*.spec.js"
+  ]
+}

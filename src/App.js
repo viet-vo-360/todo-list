@@ -89,7 +89,13 @@ const getJsonDataFromAPI = (url, cb) => {
   fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
-      cb({ type: "ADD_LIST", list: JSON.parse(responseJson) });
+      let data;
+      try {
+        data = JSON.parse(responseJson);
+      } catch (error) {
+        data = responseJson;
+      }
+      cb({ type: "ADD_LIST", list: data });
     })
     .catch((error) => {
       console.error(error);
