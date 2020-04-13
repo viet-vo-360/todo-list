@@ -19,7 +19,8 @@ export const TodoContext = createContext();
 const App = ({ useMockData }) => {
   const [todos, dispatchTodos] = useReducer(todoReducer, []);
   const pageSize = 5;
-  const currentPage =  todos && todos.length > 0 ? Math.ceil(todos.length / pageSize) : 1;
+  const currentPage =
+    todos && todos.length > 0 ? Math.ceil(todos.length / pageSize) : 1;
   const tablePagination = {
     pageSizeOptions: ["5", "10", "15"],
     defaultPageSize: pageSize,
@@ -28,14 +29,24 @@ const App = ({ useMockData }) => {
     showQuickJumper: true,
   };
   useEffect(() => {
-    fetch(SERVICE_URL)
-    .then((response) => response.json())
-      .then((responseJson) => {
-        dispatchTodos({ type: "ADD_LIST", list: JSON.parse(responseJson) });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    const controller = new AbortController();
+    const fetchData = () => {
+      try {
+        if (useMockData) {
+          dispatchTodos({ type: "ADD_LIST_TODO", payload: FORM_INITIAL_STATE });
+        } else {
+          getJsonDataFromAPI(SERVICE_URL, dispatchTodos);
+        }
+      } catch (error) {
+        console.error("Request was canceled via controller.abort");
+        return;
+      }
+    };
+
+    fetchData();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (
@@ -54,14 +65,16 @@ const App = ({ useMockData }) => {
           </Col>
         </Row>
       )}
-      {todos && todos.length > 0 && todos.filter((item) => item.isChecked).length > 0 && (
-        <Row type="flex" justify="right">
-          <Col xs={24} sm={24} md={24} lg={20} xl={20}>
-            <CompleteBySelected />
-            <DeleteBySelected />
-          </Col>
-        </Row>
-      )}
+      {todos &&
+        todos.length > 0 &&
+        todos.filter((item) => item.isChecked).length > 0 && (
+          <Row type="flex" justify="right">
+            <Col xs={24} sm={24} md={24} lg={20} xl={20}>
+              <CompleteBySelected />
+              <DeleteBySelected />
+            </Col>
+          </Row>
+        )}
       <Row type="flex" justify="center">
         <Col xs={24} sm={24} md={24} lg={12} xl={12}>
           <TodoForm todos={todos} />
@@ -73,10 +86,10 @@ const App = ({ useMockData }) => {
 export default App;
 
 const getJsonDataFromAPI = (url, cb) => {
-  fetch(url, {mode: 'no-cors'})
+  fetch(url)
     .then((response) => response.json())
     .then((responseJson) => {
-      cb({ type: "ADD_LIST_TODO", payload: responseJson });
+      cb({ type: "ADD_LIST", list: JSON.parse(responseJson) });
     })
     .catch((error) => {
       console.error(error);

@@ -15,7 +15,7 @@ export function todoReducer(state, action) {
           date: date,
           category: category.value,
           key: uuidv4(),
-          completed: "false",
+          completed: false,
           isChecked: false,
           isImportant: isImportant,
         });
@@ -27,7 +27,7 @@ export function todoReducer(state, action) {
           if (todo.key === action.payload) {
             return {
               ...todo,
-              completed: "true",
+              completed: true,
             };
           } else {
             return todo;
@@ -39,7 +39,7 @@ export function todoReducer(state, action) {
         if (seletedItem.length > 0) {
           seletedItem.map((item) => {
             var objIndex = state.findIndex((obj) => obj.key === item.key);
-            state[objIndex].completed = "true";
+            state[objIndex].completed = true;
           });
         }
 

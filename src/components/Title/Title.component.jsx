@@ -8,7 +8,7 @@ export const Title = ({ children, record }) => {
     <Paragraph
       className={
         // Display text-decoration: line-through if TODO is completed (true)
-        record.completed === 'true' ? 'true' : 'false'
+        record.completed === true ? 'true' : 'false'
       }
     >
       {children}

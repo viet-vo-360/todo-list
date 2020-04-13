@@ -22,7 +22,7 @@ namespace TodoService.Controllers
                     Date = DateTime.Now.ToString("MM/dd/yyyy"),
                     Category = "Word",
                     Completed = false,
-                    IsImportant = true,
+                    IsImportant = false,
                     IsChecked = false
                 },
                 new Todos
@@ -32,7 +32,7 @@ namespace TodoService.Controllers
                     Date = DateTime.Now.ToString("MM/dd/yyyy"),
                     Category = "Shopping",
                     Completed = false,
-                    IsImportant = true,
+                    IsImportant = false,
                     IsChecked = false
                 },
                 new Todos
