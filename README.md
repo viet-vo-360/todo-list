@@ -76,12 +76,11 @@ describe('Login', () => {
 - ``npm run cypress:run``
 
 Merge reporters:
-- junit-merge: https://www.npmjs.com/package/junit-merge -> File.xml (merged file)
+- [junit-merge](https://www.npmjs.com/package/junit-merge) -> File.xml (merged file)
 
 Convert merged file into html or display to server:
-- junit_viewer: http://lukejpreston.github.io/junit_viewer/
-or
-- xunit-viewer: https://www.npmjs.com/package/xunit-viewer
+- [junit_viewer](http://lukejpreston.github.io/junit_viewer/) 
+- [xunit-viewer](https://www.npmjs.com/package/xunit-viewer) 
 
 ## 2. Mochawesome (3rd library):
 - Install Mocha (required): ``npm install mocha``
@@ -91,7 +90,7 @@ or
 - ``npm run cypress:run``
 
 Merge reporters:
-- mochawesome-merge : https://github.com/antontelesh/mochawesome-merge -> File.json (merged file)
+- [mochawesome-merge](https://github.com/antontelesh/mochawesome-merge) -> File.json (merged file)
 
 Convert merged file into html:
-- mochawesome-report-generator: https://github.com/adamgruber/mochawesome-report-generator
+- [mochawesome-report-generator](https://github.com/adamgruber/mochawesome-report-generator)
