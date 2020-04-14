@@ -25,7 +25,6 @@ const App = () => {
     showSizeChanger: true,
     showQuickJumper: true,
   };
-  console.log("todos", todos);
   return (
     <TodoContext.Provider value={[todos, dispatchTodos]}>
       {todos.length > 0 && (

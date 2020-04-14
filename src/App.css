@@ -1,13 +1,9 @@
-div[name='todotext'] {
+div[name="todotext"] {
   margin-bottom: 0px;
 }
 
 .App {
   margin-top: 25px;
-}
-
-.ant-btn {
-  margin-top: 15px;
 }
 
 h2,
@@ -16,8 +12,15 @@ h4 {
   text-align: center;
 }
 
-span[role='img'] {
-  color: red;
+a.link {
+  color: rgba(0, 0, 0, 0.65);
+}
+a.link:active {
+  color: #096dd9 !important;
+}
+
+a.link:hover {
+  color: #096dd9 !important;
 }
 
 .true {
@@ -39,4 +42,7 @@ span[role='img'] {
 
 #checkbox-important-task {
   margin-left: 30px;
+}
+.ant-form-item {
+  margin-bottom: 16px;
 }
