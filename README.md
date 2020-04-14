@@ -68,3 +68,31 @@ describe('Login', () => {
   });
 });
 ```
+
+## Cypress reporter (Only on Run mode):
+# 1. jUnit, TeamCity (Default - without installing):
+- Declare reporter is junit in cypress.json
+- Import ``--reporter=junit`` into cypress run in package.json -> ``cypress run --reporter=junit``
+- ``npm run cypress:run``
+----------------------------------------
+Merge reporters:
+- junit-merge: https://www.npmjs.com/package/junit-merge -> File.xml (merged file)
+
+Convert merged file into html or display to server:
+- junit_viewer: http://lukejpreston.github.io/junit_viewer/
+or
+- xunit-viewer: https://www.npmjs.com/package/xunit-viewer
+
+# 2. Mochawesome (3rd library):
+- Install Mocha (required): ``npm install mocha``
+- Install mochawesome: ``npm install mochawesome``
+- Declare reporter is mochawesome in cypress.json
+- Import ``--reporter=mochawesome`` into cypress run in package.json -> ``cypress run --reporter=mochawesome``
+- ``npm run cypress:run``
+
+----------------------------------------
+Merge reporters:
+- mochawesome-merge : https://github.com/antontelesh/mochawesome-merge -> File.json (merged file)
+
+Convert merged file into html:
+- mochawesome-report-generator: https://github.com/adamgruber/mochawesome-report-generator
