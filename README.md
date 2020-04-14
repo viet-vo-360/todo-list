@@ -69,7 +69,7 @@ describe('Login', () => {
 });
 ```
 
-# Cypress reporter (Only on Run mode):
+# [Cypress reporter](https://docs.cypress.io/guides/tooling/reporters.html) (Only on Run mode):
 ## 1. jUnit, TeamCity (Default - without installing):
 - Declare reporter is junit in cypress.json
 - Import ``--reporter=junit`` into cypress run in package.json -> ``cypress run --reporter=junit``
