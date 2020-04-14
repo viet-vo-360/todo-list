@@ -7,6 +7,7 @@ describe('Add todo task', () => {
       category: 'Work',
       isImportant: true,
     });
+    
     cy.get('.ant-table-row').last().as('newTask');
     cy.get('@newTask').should('have.css', 'background-color', 'rgb(255, 255, 224)');
     cy.get('@newTask').should('contain', 'Research cypress');

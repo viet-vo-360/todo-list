@@ -1,4 +1,12 @@
 {
-    "baseUrl": "http://localhost:3000",
-    "defaultCommandTimeout": 10000
+  "baseUrl": "http://localhost:3000",
+  "defaultCommandTimeout": 10000,
+  "screenshotsFolder": "cypress/screenshots",
+  "video": true,
+  "videosFolder": "cypress/videos",
+  "trashAssetsBeforeRuns": true,
+  "ignoreTestFiles": [
+    "**/__examples__/*"
+  ],
+  "projectId": "23fnn5"
 }

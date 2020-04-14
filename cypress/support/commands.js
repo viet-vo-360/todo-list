@@ -37,6 +37,13 @@ Cypress.on('uncaught:exception', (err) => {
   }
 });
 
+addMatchImageSnapshotCommand({
+  failureThreshold: 0.01, // threshold for entire image
+  failureThresholdType: 'percent', // percent of image or number of pixels
+  customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
+  capture: 'viewport', // capture viewport in screenshot
+});
+
 Cypress.Commands.add('addTask', ({ name, date, category, isImportant }) => {
   cy.get('#task-tilte').type(name);
   cy.get('.ant-picker-input > input').click().type(date);
