@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Checkbox } from "antd";
-import { TodoContext } from "../../App";
+import { TodoContext } from '../../routes/Home';
 export const SelectAll = () => {
   const [checkAll, setCheckAll] = useState(false);
   const [, dispatchTodos] = useContext(TodoContext);

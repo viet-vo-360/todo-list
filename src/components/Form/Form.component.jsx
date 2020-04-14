@@ -8,7 +8,7 @@ import { FormInput } from "./FormInput.component";
 import { Category } from "./Category.component";
 import { Important } from "./Important.component";
 
-import { TodoContext } from "../../App";
+import { TodoContext } from "../../routes/Home";
 
 const { Title } = Typography;
 
