@@ -22,6 +22,7 @@ Insert these lines to ```packages.json```:
 # Run cypress
 ```npm run cypress:open``` or ```npm run cypress:run```
 
+
 # [Add Cypress Image Snapshot Plugin](https://github.com/palmerhq/cypress-image-snapshot)
 
 ### Installation
@@ -45,7 +46,7 @@ module.exports = (on, config) => {
 };
 ```
 
-Go to `nd in <rootDir>/cypress/support/commands.js`
+Go to `<rootDir>/cypress/support/commands.js`
 Add the following to the `command.js` file
 
 ```js
