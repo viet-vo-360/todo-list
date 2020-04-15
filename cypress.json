@@ -2,7 +2,13 @@
   "baseUrl": "http://localhost:3000/",
   "defaultCommandTimeout": 10000,
   "pageLoadTimeout": 30000,
-  "ignoreTestFiles": [
-    "**/examples/*.spec.js"
-  ]
+  "integrationFolder": "./cypress/integration/FunctionalTest/",
+  "video": false,
+  "reporter": "mochawesome",
+  "reporterOptions": {
+    "reportDir": "cypress/results",
+    "overwrite": false,
+    "html": true,
+    "json": true
+  }
 }

@@ -35,3 +35,15 @@
 //       })
 //   );
 // });
+Cypress.Commands.add('addtask', (name,category,date,isImportant) => {
+    cy.get('.ant-form-item-control-input').find('#task-tilte').clear();
+    cy.get('.ant-form-item-control-input').find('#task-tilte').type(name).type('{enter}');
+    cy.get('#task-category').click();
+    cy.get('#task-category').type(category).type('{enter}');
+    cy.get('input[placeholder="Select date"]').click();
+    cy.get('input[placeholder="Select date"]').type(date).type('{enter}');
+    if(isImportant == true) {
+        cy.get('#checkbox-important-task').click();
+    };
+    cy.get('.ant-btn-block').click();
+})

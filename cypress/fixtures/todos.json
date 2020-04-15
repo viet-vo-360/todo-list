@@ -18,5 +18,15 @@
     "isImportant": false,
     "isChecked": false,
     "dataIndex": 0
+  },
+  {
+    "key": "85bed8fc-dfa6-4790-824f-35562d9562a0",
+    "title": "Add task by mock API",
+    "date": "2020-04-15",
+    "completed": false,
+    "category": "Entertaiment",
+    "isImportant": true,
+    "isChecked": false,
+    "dataIndex": 0
   }
 ]

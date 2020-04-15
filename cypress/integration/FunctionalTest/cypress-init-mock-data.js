@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const mockData = require("../../fixtures/todos.json");
 describe("Add todo task", () => {
-  it("it should use mock data", function () {
+  it.only("it should use mock data", function () {
     cy.server();
     cy.fixture("todos.json").as("mockData");
     cy.route("http://me.todolist.com/todos/list", "@mockData").as("fetchData");
@@ -18,8 +18,14 @@ describe("Add todo task", () => {
     cy.window().then((win) => {
       cy.url().should("eq", win.location.href);
     });
-    cy.document().then((doc) => {
-      doc.body.style.background = "red";
-    });
+    //cy.document().then((doc) => {
+    //  doc.body.style.background = "red";
+    //});
+    cy.document().then((doc)=> {
+      doc.contentType.contains('text/html');
+    }) 
   });
+  it('Report with mochawesome', () => {
+    
+  })
 });
