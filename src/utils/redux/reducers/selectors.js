@@ -1,5 +1,4 @@
 import { VISIBILITY_FILTERS } from "../../constants/VISIBILITY_FILTERS";
-import { FORM_INITIAL_STATE } from "../../constants/INITIAL_STATE";
 
 export const getTodosState = (store) => store.todos;
 
