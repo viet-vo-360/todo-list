@@ -1,16 +1,14 @@
-import React, { useContext, useState } from 'react';
-import { TodoContext } from '../../routes/Home';
-import { Popconfirm } from 'antd';
-import { Button } from 'antd';
+import React from 'react';
+import { connect } from "react-redux";
+import { deleteSelectedTodo } from "../../utils/redux/action";
+import { Popconfirm, Button } from 'antd';
 
-export const DeleteBySelected = () => {
-  const [, dispatchTodos] = useContext(TodoContext);
-
+const DeleteBySelected = ({deleteSelectedTodo}) => {
   return (
     <Popconfirm
       title="Are you sure you want to delete?"
       onConfirm={() => {
-        dispatchTodos({ type: 'DELETE_SELECTED_ITEM', payload: '' });
+        deleteSelectedTodo()
       }}
     ><Button href="#delete"
         className="btn-delete"
@@ -23,3 +21,5 @@ export const DeleteBySelected = () => {
     </Popconfirm>
   );
 };
+
+export default connect(null, { deleteSelectedTodo })(DeleteBySelected);

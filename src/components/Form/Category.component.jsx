@@ -19,7 +19,7 @@ export const Category = ({ setCategory }) => (
     >
       {categories.length > 0 &&
         categories.map((category, i) => {
-          return <Option value={category.value}>{category.title}</Option>;
+          return <Option key={i} value={category.value}>{category.title}</Option>;
         })}
     </Select>
   </Col>

@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
-import { TodoContext } from '../../routes/Home';
+import { connect } from "react-redux";
+import { completeSelectedTodo } from "../../utils/redux/action";
 import { Button } from "antd";
 
-export const CompleteBySelected = () => {
-  const [, dispatchTodos] = useContext(TodoContext);
-  const [hidden, setHidden] = useState(false);
+const CompleteBySelected = ({completeSelectedTodo}) => {
   return (
     <div style={{ display: "inline", marginRight: "5px" }}>
       <Button
@@ -13,8 +12,7 @@ export const CompleteBySelected = () => {
         type="primary"
         style={{ width: "300px" }}
         onClick={() => {
-          setHidden(true);
-          dispatchTodos({ type: "COMPLETE_SELECTED_ITEM", payload: "" });
+          completeSelectedTodo()
         }}
       >
         Complete item selected
@@ -22,3 +20,5 @@ export const CompleteBySelected = () => {
     </div>
   );
 };
+
+export default connect(null, { completeSelectedTodo })(CompleteBySelected);

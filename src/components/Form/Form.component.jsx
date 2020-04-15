@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import { connect } from "react-redux";
+import { addTodo } from "../../utils/redux/action";
 import { Button, Form, Row, Typography } from "antd";
 
 import { openNotification } from "../../utils/functions/openNotification";
@@ -8,26 +10,22 @@ import { FormInput } from "./FormInput.component";
 import { Category } from "./Category.component";
 import { Important } from "./Important.component";
 
-import { TodoContext } from "../../routes/Home";
-
 const { Title } = Typography;
 
-export const TodoForm = (props) => {
-  // Could replace useState with useReducer but I decided to keep things simple
-  const [form, setForm] = useState();
+const TodoForm = (props) => {
+  const [title, setTitle] = useState();
   const [date, setDate] = useState();
-  const [isImportant, setImportant] = useState();
+  const [isImportant, setImportant] = useState(false);
   const [category, setCategory] = useState();
-  const [, dispatchTodos] = useContext(TodoContext);
   const [existedError, setExistedError] = useState(false);
 
   const hasDate = date ? true : false;
   const hasCategory = category ? true : false;
 
   const formSubmit = () => {
-    if (form && date && category && form.length >= 5) {
-      if (props.todos.filter(e => e.title === form && e.date === date && e.category === category.value && e.completed === 'false').length === 0) {
-        dispatchTodos({ type: "ADD_TODO", payload: [form, date, category, isImportant] });
+    if (title && date && category && title.length >= 5) {
+      if (props.todos.filter(e => e.title === title && e.date === date && e.category === category.value && e.completed === 'false').length === 0) {
+        props.addTodo({title, date, category, isImportant});
         setExistedError(false);
       } else {
         setExistedError(true);
@@ -44,15 +42,15 @@ export const TodoForm = (props) => {
           Add TODO item
         </Title>
         <Row type="flex" justify="center">
-          <FormInput data-testid="todo" setForm={setForm} />
-          {form && form.length >= 5 ? (
+          <FormInput data-testid="todo" setTitle={setTitle} />
+          {title && title.length >= 5 ? (
             <>
               <Calendar setDate={setDate} />
               <Category setCategory={setCategory} />
               <Important setImportant={setImportant}/>
             </>
           ) : null}
-          {form && form.length < 5 ? (
+          {title && title.length < 5 ? (
             <Title className="TitleLength" type="danger" level={4}>
               Length must be more than 5
             </Title>
@@ -71,3 +69,8 @@ export const TodoForm = (props) => {
     </>
   );
 };
+
+export default connect(
+  null,
+  { addTodo }
+)(TodoForm);

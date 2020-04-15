@@ -1,30 +1,30 @@
-import React, { useContext, useState } from 'react';
-import { TodoContext } from '../../routes/Home';
-import { Button } from 'antd';
+import React, { useContext, useState } from "react";
+import { connect } from "react-redux";
+import { completeTodo } from "../../utils/redux/action";
+import { Button } from "antd";
 
-export const Complete = ({ record }) => {
-  const [, dispatchTodos] = useContext(TodoContext);
-  const [hidden, setHidden] = useState(record.completed === "true" ? true : false);
+const Complete = ({ record, completeTodo }) => {
+  const [hidden, setHidden] = useState(
+    record.completed === "true" ? true : false
+  );
   return (
-    <div style={{ display: 'inline', marginRight: '5px'}}>
-      {
-        hidden ? (null) :
-          (
-            <Button href="#complete"
-              className="btn-complete"
-              type="primary"
-              style={{width: '100px'}}
-              onClick={
-                () => {
-                  setHidden(true);
-                  dispatchTodos({ type: 'COMPLETE_TODO', payload: record.key });
-                }
-              }
-            >
-              {hidden ? '' : 'Complete'}
-            </Button >
-          )
-      }
+    <div style={{ display: "inline", marginRight: "5px" }}>
+      {hidden ? null : (
+        <Button
+          href="#complete"
+          className="btn-complete"
+          type="primary"
+          style={{ width: "100px" }}
+          onClick={() => {
+            setHidden(true);
+            completeTodo({key: record.key})
+          }}
+        >
+          {hidden ? "" : "Complete"}
+        </Button>
+      )}
     </div>
-  )
+  );
 };
+
+export default connect(null, { completeTodo })(Complete);

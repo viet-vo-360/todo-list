@@ -1,6 +1,6 @@
 import React from "react";
-import { Complete } from "../../components/Complete/Complete.component";
-import { Delete } from "../../components/Delete/Delete.component";
+import Complete from "../../components/Complete/Complete.component";
+import Delete from "../../components/Delete/Delete.component";
 import { Title } from "../../components/Title/Title.component";
 import { SelectAll, Select } from "../../components/Form/Select.component";
 export const FORM_COLUMNS = [

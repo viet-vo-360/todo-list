@@ -1,12 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Checkbox } from "antd";
-import { TodoContext } from '../../routes/Home';
+
 export const SelectAll = () => {
   const [checkAll, setCheckAll] = useState(false);
-  const [, dispatchTodos] = useContext(TodoContext);
 
   function onSelectAllChange() {
-    dispatchTodos({ type: 'CHECK_ALL', payload: '', isChecked: !checkAll });
     setCheckAll(!checkAll);
   }
 
@@ -18,13 +16,11 @@ export const SelectAll = () => {
 };
 
 export const Select = ({ record }) => {
-  // const [checked, setChecked] = useState(record);
-  const [, dispatchTodos] = useContext(TodoContext);
+  const [checked, setChecked] = useState(record);
 
   function onSelectChange() {
-    // checked.isChecked = !checked.isChecked;
-    // setChecked({...checked, isChecked : !checked.isChecked});
-    dispatchTodos({ type: 'CHECK_TODO', payload: record.key, isChecked: !record.isChecked });
+    checked.isChecked = !checked.isChecked;
+    setChecked({ ...checked, isChecked: !checked.isChecked });
   }
 
   return (

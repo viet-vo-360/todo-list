@@ -1,21 +1,25 @@
-import React, { useReducer, createContext, useState } from "react";
+import React, { useReducer, createContext } from "react";
+import { connect } from "react-redux";
 import { Table, Row, Col } from "antd";
 
 import "antd/dist/antd.css";
 import "../../App.css";
 
-import { todoReducer } from "../../utils/functions/formReducer";
-import { FORM_INITIAL_STATE } from "../../utils/constants/INITIAL_STATE";
 import { FORM_COLUMNS } from "../../utils/constants/FORM_COLUMNS";
+import { VISIBILITY_FILTERS } from "../../utils/constants/VISIBILITY_FILTERS";
+import { getTodosByVisibilityFilter } from "../../utils/redux/reducers/selectors";
 
-import { TodoForm } from "../../components/Form/Form.component";
-import { CompleteBySelected } from "../../components/Complete/CompleteBySelected.component";
-import { DeleteBySelected } from "../../components/Delete/DeleteBySelected.component";
+import TodoForm from "../../components/Form/Form.component";
+import CompleteBySelected from "../../components/Complete/CompleteBySelected.component";
+import DeleteBySelected from "../../components/Delete/DeleteBySelected.component";
 
-export const TodoContext = createContext();
+const mapStateToProps = (state) => {
+  const { visibilityFilter } = state;
+  const todos = getTodosByVisibilityFilter(state, visibilityFilter);
+  return { todos };
+};
 
-const App = () => {
-  const [todos, dispatchTodos] = useReducer(todoReducer, FORM_INITIAL_STATE);
+const TodoList = ({ todos }) => {
   const pageSize = 5;
   const currentPage = Math.ceil(todos.length / pageSize);
   const tablePagination = {
@@ -26,7 +30,7 @@ const App = () => {
     showQuickJumper: true,
   };
   return (
-    <TodoContext.Provider value={[todos, dispatchTodos]}>
+    <>
       {todos.length > 0 && (
         <Row type="flex" justify="center">
           <Col xs={24} sm={24} md={24} lg={20} xl={20}>
@@ -54,7 +58,7 @@ const App = () => {
           <TodoForm todos={todos} />
         </Col>
       </Row>
-    </TodoContext.Provider>
+    </>
   );
 };
-export default App;
+export default connect(mapStateToProps)(TodoList);

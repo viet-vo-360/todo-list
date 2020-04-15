@@ -1,26 +1,27 @@
-import React, { useContext, useState } from 'react';
-import { TodoContext } from '../../routes/Home';
-import { Popconfirm } from 'antd';
-import { Button } from 'antd';
+import React, { useContext, useState } from "react";
+import { connect } from "react-redux";
+import { deleteTodo } from "../../utils/redux/action";
+import { Popconfirm as Confirm, Button } from "antd";
 
-export const Delete = ({ record }) => {
-  const [, dispatchTodos] = useContext(TodoContext);
-
+const Delete = ({ record, deleteTodo }) => {
   return (
-    <Popconfirm
+    <Confirm
       title="Are you sure you want to delete?"
       onConfirm={() => {
-        dispatchTodos({ type: 'DELETE_TODO', payload: record.key });
+        deleteTodo({key : record.key});
       }}
     >
-      <Button href="#delete"
+      <Button
+        href="#delete"
         className="btn-delete"
         type="primary"
         danger
-        style={{ width: '100px' }}
+        style={{ width: "100px" }}
       >
         Delete
       </Button>
-    </Popconfirm>
+    </Confirm>
   );
 };
+
+export default connect(null, { deleteTodo })(Delete);
