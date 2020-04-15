@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { deleteSelectedTodo } from "../../utils/redux/action";
+import { deleteSelectedTodo } from "../../../utils/redux/action";
 import { Popconfirm, Button } from 'antd';
 
 const DeleteBySelected = ({deleteSelectedTodo}) => {

@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { completeSelectedTodo } from "../../utils/redux/action";
+import { completeSelectedTodo } from "../../../utils/redux/action";
 import { Button } from "antd";
 
 const CompleteBySelected = ({completeSelectedTodo}) => {

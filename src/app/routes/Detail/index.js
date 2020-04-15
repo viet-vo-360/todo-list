@@ -1,20 +1,13 @@
 import React from "react";
-import {
-  Form,
-  Input,
-  Button,
-  DatePicker,
-  Select,
-  Checkbox,
-  Anchor,
-  Space,
-} from "antd";
+import { connect } from "react-redux";
+import { Form, Input, Button, DatePicker, Select, Checkbox, Space } from "antd";
 import {
   ArrowLeftOutlined,
   EditOutlined,
   CheckCircleOutlined,
 } from "@ant-design/icons";
-import { categories } from "../../utils/constants/CATEGORIES";
+import { categories } from "../../constants/CATEGORIES";
+import { getTodoById } from "../../../utils/redux/reducers/selectors";
 
 const { Option } = Select;
 
@@ -30,25 +23,24 @@ const achorLayout = {
 const tailLayout = {
   wrapperCol: { offset: 6, span: 4 },
 };
-const Detail = () => {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+const mapStateToProps = (state, ownProps) => {
+  const todoItem = getTodoById(state, ownProps.match.params.id);
+  return { todoItem };
+};
+
+const Detail = ({ todoItem }) => {
+
+  if (!todoItem){
+    return (
+      <h1>This item isn't existed in todo list</h1>
+    )
+  }
 
   return (
     <div>
-      <Form
-        {...layout}
-        style={{ marginTop: "20px" }}
-        name="basic"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <Form.Item {... achorLayout}>
+      <Form {...layout} style={{ marginTop: "20px" }} name="basic">
+        <Form.Item {...achorLayout}>
           <a class="link" href="#back">
             <ArrowLeftOutlined /> Back
           </a>
@@ -102,4 +94,4 @@ const Detail = () => {
   );
 };
 
-export default Detail;
+export default connect(mapStateToProps)(Detail);

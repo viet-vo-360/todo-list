@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addTodo } from "../../utils/redux/action";
+import { addTodo } from "../../../utils/redux/action";
 import { Button, Form, Row, Typography } from "antd";
 
-import { openNotification } from "../../utils/functions/openNotification";
+import { openNotification } from "../../../utils/functions/openNotification";
 
 import { Calendar } from "./Calendar.component";
 import { FormInput } from "./FormInput.component";

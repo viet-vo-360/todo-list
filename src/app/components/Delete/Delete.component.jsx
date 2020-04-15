@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { deleteTodo } from "../../utils/redux/action";
+import { deleteTodo } from "../../../utils/redux/action";
 import { Popconfirm as Confirm, Button } from "antd";
 
 const Delete = ({ record, deleteTodo }) => {

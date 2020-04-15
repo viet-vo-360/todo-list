@@ -1,9 +1,9 @@
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
 import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { Provider } from "react-redux";
+import App from './app/app';
 import store from "./utils/redux/store";
 
 const Application = () => (
@@ -12,4 +12,6 @@ const Application = () => (
   </Provider>
 );
 
-ReactDOM.render(<Application />, document.getElementById('root'));
+const root = document.querySelector('#root');
+
+render(<Application />, root);

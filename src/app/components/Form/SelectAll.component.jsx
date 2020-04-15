@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Checkbox } from "antd";
-import { checkAllItem } from "../../utils/redux/action";
+import { checkAllItem } from "../../../utils/redux/action";
 
 const SelectAll = ({checkAllItem}) => {
   const [checkAll, setCheckAll] = useState(false);

@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { completeTodo } from "../../utils/redux/action";
+import { completeTodo } from "../../../utils/redux/action";
 import { Button } from "antd";
 
 const Complete = ({ record, completeTodo }) => {

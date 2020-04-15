@@ -1,9 +1,9 @@
-import { VISIBILITY_FILTERS } from "../../constants/VISIBILITY_FILTERS";
+import { VISIBILITY_FILTERS } from "../../../app/constants/VISIBILITY_FILTERS";
 
 export const getTodosState = (store) => store.todos;
 
 export const getTodoById = (store, id) =>
-  getTodosState(store) ? { ...getTodosState(store).byIds[id], id } : {};
+  getTodosState(store) ? { ...getTodosState(store).key, id } : {};
 
 export const getTodos = (store) => getTodosState(store);
 

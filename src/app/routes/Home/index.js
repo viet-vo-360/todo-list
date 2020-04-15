@@ -1,13 +1,13 @@
-import React, { useReducer, createContext } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Table, Row, Col } from "antd";
 
 import "antd/dist/antd.css";
-import "../../App.css";
+import "../../app.css";
 
-import { FORM_COLUMNS } from "../../utils/constants/FORM_COLUMNS";
-import { VISIBILITY_FILTERS } from "../../utils/constants/VISIBILITY_FILTERS";
-import { getTodosByVisibilityFilter } from "../../utils/redux/reducers/selectors";
+import { FORM_COLUMNS } from "../../constants/FORM_COLUMNS";
+import { VISIBILITY_FILTERS } from "../../constants/VISIBILITY_FILTERS";
+import { getTodosByVisibilityFilter } from "../../../utils/redux/reducers/selectors";
 
 import TodoForm from "../../components/Form/Form.component";
 import CompleteBySelected from "../../components/Complete/CompleteBySelected.component";

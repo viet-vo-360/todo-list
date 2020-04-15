@@ -3,7 +3,7 @@ import { Typography } from "antd";
 
 const { Paragraph } = Typography;
 
-export const Title = ({ record, children }) => {
+export default ({ record, children }) => {
   return (
     <Paragraph
       className={
