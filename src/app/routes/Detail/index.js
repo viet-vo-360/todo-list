@@ -30,18 +30,15 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const Detail = ({ todoItem }) => {
-
-  if (!todoItem){
-    return (
-      <h1>This item isn't existed in todo list</h1>
-    )
+  if (!todoItem) {
+    return <h1>This item isn't existed in todo list</h1>;
   }
 
   return (
     <div>
       <Form {...layout} style={{ marginTop: "20px" }} name="basic">
         <Form.Item {...achorLayout}>
-          <a class="link" href="#back">
+          <a className="link" href="#back">
             <ArrowLeftOutlined /> Back
           </a>
         </Form.Item>
@@ -69,7 +66,9 @@ const Detail = ({ todoItem }) => {
                 {categories.length > 0 &&
                   categories.map((category, i) => {
                     return (
-                      <Option value={category.value}>{category.title}</Option>
+                      <Option key={i} value={category.value}>
+                        {category.title}
+                      </Option>
                     );
                   })}
               </Select>
@@ -80,14 +79,14 @@ const Detail = ({ todoItem }) => {
           </Input.Group>
         </Form.Item>
         <Form.Item {...tailLayout}>
-          <Space>
+          <div>
             <Button>
               <EditOutlined /> Edit
             </Button>
             <Button type="primary">
               <CheckCircleOutlined /> Save
             </Button>
-          </Space>
+          </div>
         </Form.Item>
       </Form>
     </div>

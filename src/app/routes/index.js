@@ -19,7 +19,7 @@ export default ({props}) => {
     <Router>
       <Switch>
         <Route exact path={"/"} render={({ match, history }) => <Home history={history} routeName="home" match={match} {...props} />} />
-        <Route exact path={"/detail/:id"} render={({ match, history }) => <Home history={history} routeName="home" match={match} {...props} />} />
+        <Route exact path={"/detail/:id"} render={({ match, history }) => <Detail history={history} routeName="detail" match={match} {...props} />} />
       </Switch>
     </Router>
   );
