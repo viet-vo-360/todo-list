@@ -36,8 +36,7 @@
 //   );
 // });
 Cypress.Commands.add('addtask', (name,category,date,isImportant) => {
-    cy.get('.ant-form-item-control-input').find('#task-tilte').clear();
-    cy.get('.ant-form-item-control-input').find('#task-tilte').type(name).type('{enter}');
+    cy.get('.ant-form-item-control-input').find('#task-tilte').type(name);
     cy.get('#task-category').click();
     cy.get('#task-category').type(category).type('{enter}');
     cy.get('input[placeholder="Select date"]').click();
@@ -46,4 +45,7 @@ Cypress.Commands.add('addtask', (name,category,date,isImportant) => {
         cy.get('#checkbox-important-task').click();
     };
     cy.get('.ant-btn-block').click();
+
+    cy.get('.ant-form-item-control-input').find('#task-tilte').clear();
+
 })

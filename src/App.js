@@ -28,26 +28,6 @@ const App = ({ useMockData }) => {
     showSizeChanger: true,
     showQuickJumper: true,
   };
-  useEffect(() => {
-    const controller = new AbortController();
-    const fetchData = () => {
-      try {
-        if (useMockData) {
-          dispatchTodos({ type: "ADD_LIST_TODO", payload: FORM_INITIAL_STATE });
-        } else {
-          getJsonDataFromAPI(SERVICE_URL, dispatchTodos);
-        }
-      } catch (error) {
-        console.error("Request was canceled via controller.abort");
-        return;
-      }
-    };
-
-    fetchData();
-    return () => {
-      controller.abort();
-    };
-  }, []);
 
   return (
     <TodoContext.Provider value={[todos, dispatchTodos]}>
