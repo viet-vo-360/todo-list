@@ -44,6 +44,7 @@ const Detail = ({ todoItem, editTodo }) => {
       date: values.date.format(dateFormat),
       isChecked: todoItem.isChecked
     });
+    setEditMode(false);
   };
 
   return (
