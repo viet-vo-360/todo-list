@@ -1,8 +1,7 @@
 import React from "react";
-import { Typography, Anchor } from "antd";
+import { Typography } from "antd";
 
 const { Paragraph } = Typography;
-const { Link } = Anchor;
 
 export const Title = ({ record, children }) => {
   return (

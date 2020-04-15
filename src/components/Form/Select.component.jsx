@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Checkbox } from "antd";
 import { checkItem } from "../../utils/redux/action";
 
-const Select = ({ record, checkItem }) => {
+const Select = ({ record, children, checkItem }) => {
   const [checked, setChecked] = useState(record);
 
   function onSelectChange() {
@@ -14,7 +14,7 @@ const Select = ({ record, checkItem }) => {
   return (
     <Checkbox
       className="ckb-item"
-      checked={record.isChecked}
+      checked={checked.isChecked}
       onChange={onSelectChange}
     ></Checkbox>
   );

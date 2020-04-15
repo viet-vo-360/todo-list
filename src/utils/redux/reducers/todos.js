@@ -27,7 +27,6 @@ export default (state = initialState, action) => {
         isChecked: false,
         isImportant: isImportant,
       };
-
       return state.concat(todoItem);
 
     case COMPLETE_TODO:
@@ -48,10 +47,9 @@ export default (state = initialState, action) => {
       if (seletedItem.length > 0) {
         seletedItem.map((item) => {
           var objIndex = state.findIndex((obj) => obj.key === item.key);
-          state[objIndex].completed = "true";
+          state[objIndex].completed = true;
         });
       }
-
       return [...state];
 
     case DELETE_TODO:
@@ -66,7 +64,6 @@ export default (state = initialState, action) => {
           state = state.filter((item) => item.key !== sItem.key);
         });
       }
-
       return state;
 
     case CHECK_ITEM:
