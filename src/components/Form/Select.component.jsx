@@ -1,26 +1,14 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Checkbox } from "antd";
+import { checkItem } from "../../utils/redux/action";
 
-export const SelectAll = () => {
-  const [checkAll, setCheckAll] = useState(false);
-
-  function onSelectAllChange() {
-    setCheckAll(!checkAll);
-  }
-
-  return (
-    <Checkbox id="ckb-all" onChange={onSelectAllChange} checked={checkAll}>
-      Select All
-    </Checkbox>
-  );
-};
-
-export const Select = ({ record }) => {
+const Select = ({ record, checkItem }) => {
   const [checked, setChecked] = useState(record);
 
   function onSelectChange() {
-    checked.isChecked = !checked.isChecked;
     setChecked({ ...checked, isChecked: !checked.isChecked });
+    checkItem({ key: record.key, isChecked: !checked.isChecked });
   }
 
   return (
@@ -31,3 +19,5 @@ export const Select = ({ record }) => {
     ></Checkbox>
   );
 };
+
+export default connect(null, { checkItem })(Select);

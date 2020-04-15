@@ -6,11 +6,13 @@ import {
   COMPLETE_SELECTED_ITEM,
   DELETE_TODO,
   DELETE_SELECTED_ITEM,
+  CHECK_ITEM,
+  CHECK_ALL_ITEM,
 } from "../actionTypes";
 const initialState = [];
 
 export default (state = initialState, action) => {
-  const { title, date, category, isImportant, key } = action.payload || {};
+  const { key, title, date, category, isImportant, isChecked } = action.payload || {};
 
   switch (action.type) {
     case ADD_TODO:
@@ -67,17 +69,19 @@ export default (state = initialState, action) => {
 
       return state;
 
-    // case "CHECK_TODO":
-    //   var objIndex = state.findIndex((obj) => obj.key === action.payload);
-    //   if (objIndex !== -1) {
-    //     state[objIndex].isChecked = action.isChecked;
-    //   }
-    //   return [...state];
-    // case "CHECK_ALL":
-    //   return state.map((item) => {
-    //     item.isChecked = action.isChecked;
-    //     return item;
-    //   });
+    case CHECK_ITEM:
+      var objIndex = state.findIndex((obj) => obj.key === key);
+      if (objIndex !== -1) {
+        state[objIndex].isChecked = isChecked;
+      }
+      return [...state];
+
+    case CHECK_ALL_ITEM:
+      return state.map((item) => {
+        item.isChecked = isChecked;
+        return item;
+      });
+
     default:
       return state;
   }

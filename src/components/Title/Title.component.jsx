@@ -4,18 +4,20 @@ import { Typography, Anchor } from "antd";
 const { Paragraph } = Typography;
 const { Link } = Anchor;
 
-export const Title = (data) => {
+export const Title = ({ record, children }) => {
   return (
     <Paragraph
       className={
         // Display text-decoration: line-through if TODO is completed (true)
-        data.record.completed === true ? "true" : "false"
+        record.completed === true ? "true" : "false"
       }
     >
-      {data.record.title !== data.children ? (
-        data.children
+      {record.title !== children ? (
+        children
       ) : (
-        <a className="link" href={`/detail/${data.record.key}`}>{data.children}</a>
+        <a className="link" href={`/detail/${record.key}`}>
+          {children}
+        </a>
       )}
     </Paragraph>
   );
