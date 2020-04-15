@@ -6,6 +6,7 @@ import {
   DELETE_SELECTED_ITEM,
   CHECK_ITEM,
   CHECK_ALL_ITEM,
+  EDIT_TODO,
 } from "./actionTypes";
 
 export const addTodo = (content) => ({
@@ -40,5 +41,10 @@ export const checkItem = (content) => ({
 
 export const checkAllItem = (content) => ({
   type: CHECK_ALL_ITEM,
+  payload: content,
+});
+
+export const editTodo = (content) => ({
+  type: EDIT_TODO,
   payload: content,
 });

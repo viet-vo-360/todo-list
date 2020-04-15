@@ -1,11 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
-
 export const FORM_INITIAL_STATE = {
   todos: [
     {
-      key: uuidv4(),
+      key: "00f39f80-628b-4679-b443-ce75afe81bac",
       title: "Do Housecleaning",
-      date: "2020-04-15",
+      date: "15/04/2020",
       category: "Work",
       completed: "false",
       isImportant: true,
@@ -13,9 +11,9 @@ export const FORM_INITIAL_STATE = {
       dataIndex: 0,
     },
     {
-      key: uuidv4(),
+      key: "00s39w88-789s-9534-c796-ce75afef1erw",
       title: "Go to the supermarket",
-      date: "2020-04-20",
+      date: "15/04/2020",
       completed: "false",
       category: "Shopping",
       isImportant: false,

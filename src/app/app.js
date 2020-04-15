@@ -1,8 +1,8 @@
 import React from "react";
-import { compose } from "redux";
-import { withRouter } from "react-router";
 import styled from "@emotion/styled";
 import Routes from "./routes";
+import "antd/dist/antd.css";
+import "./app.css";
 
 const Main = styled("main")`
   margin-top: 20px;

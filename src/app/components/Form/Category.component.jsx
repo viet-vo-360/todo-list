@@ -1,6 +1,6 @@
 import React from "react";
 import { Select, Col } from "antd";
-import { categories } from "../../../utils/constants/CATEGORIES";
+import { categories } from "../../constants/CATEGORIES";
 
 const { Option } = Select;
 

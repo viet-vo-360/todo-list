@@ -8,11 +8,13 @@ import {
   DELETE_SELECTED_ITEM,
   CHECK_ITEM,
   CHECK_ALL_ITEM,
+  EDIT_TODO,
 } from "../actionTypes";
 const initialState = [];
 
 export default (state = initialState, action) => {
-  const { key, title, date, category, isImportant, isChecked } = action.payload || {};
+  const { key, title, date, category, isImportant, isChecked } =
+    action.payload || {};
 
   switch (action.type) {
     case ADD_TODO:
@@ -78,7 +80,16 @@ export default (state = initialState, action) => {
         item.isChecked = isChecked;
         return item;
       });
-
+    case EDIT_TODO:
+      openNotification("bottomLeft", "TODO edited");
+      var objIndex = state.findIndex((obj) => obj.key === key);
+      if (objIndex !== -1) {
+        state[objIndex].title = title;
+        state[objIndex].date = date;
+        state[objIndex].category = category;
+        state[objIndex].isImportant = isImportant;
+      }
+      return [...state];
     default:
       return state;
   }
