@@ -1,26 +1,40 @@
 import React from "react";
-import Loadable from 'react-loadable';
+import Loadable from "react-loadable";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../../utils/redux/store";
 
 export const Home = Loadable({
-  loader: () => import('./Home'),
+  loader: () => import("./Home"),
   loading: () => null,
-  modules: ['Home']
+  modules: ["Home"],
 });
 
 export const Detail = Loadable({
-  loader: () => import('./Detail'),
+  loader: () => import("./Detail"),
   loading: () => null,
-  modules: ['Detail']
+  modules: ["Detail"],
 });
 
-export default ({props}) => {
+export default () => {
   return (
-    <Router>
+    <ConnectedRouter history={history}>
       <Switch>
-        <Route exact path={"/"} render={({ match, history }) => <Home history={history} routeName="home" match={match} {...props} />} />
-        <Route exact path={"/detail/:id"} render={({ match, history }) => <Detail history={history} routeName="detail" match={match} {...props} />} />
+        <Route
+          exact
+          path={"/"}
+          render={({ match, history }) => (
+            <Home history={history} routeName="home" match={match} />
+          )}
+        />
+        <Route
+          exact
+          path={"/detail/:id"}
+          render={({ match, history }) => (
+            <Detail history={history} routeName="detail" match={match} />
+          )}
+        />
       </Switch>
-    </Router>
+    </ConnectedRouter>
   );
 };

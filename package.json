@@ -9,6 +9,7 @@
     "@testing-library/react": "^10.0.2",
     "@testing-library/user-event": "^10.0.1",
     "antd": "^4.1.0",
+    "connected-react-router": "^6.8.0",
     "firebase": "^7.13.2",
     "moment": "^2.24.0",
     "react": "^16.13.1",

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import moment from "moment";
 import { Form, Input, Button, DatePicker, Select, Checkbox } from "antd";
@@ -65,9 +66,9 @@ const Detail = ({ todoItem, editTodo }) => {
           }}
         >
           <Form.Item {...achorLayout}>
-            <a className="link" href="/">
+            <Link className="link" to="/">
               <ArrowLeftOutlined /> Back
-            </a>
+            </Link>
           </Form.Item>
           <Form.Item
             label="Task title"

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 import { Typography } from "antd";
 
 const { Paragraph } = Typography;
@@ -14,9 +15,9 @@ export default ({ record, children }) => {
       {record.title !== children ? (
         children
       ) : (
-        <a className="link" href={`/detail/${record.key}`}>
+        <Link className="link" to={`/detail/${record.key}`}>
           {children}
-        </a>
+        </Link>
       )}
     </Paragraph>
   );
