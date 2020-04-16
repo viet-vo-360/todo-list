@@ -1,6 +1,7 @@
 describe('Add task with parameter get from fixture', ()=> {
-    it.only('Add task complete task then delete task', ()=> {
+    it('Add task complete task then delete task', ()=> {
         cy.visit('/');
+        cy.clickPageDisplay(15);
         cy.fixture('nametask.json').then($task =>{
             cy.addtask($task.name,$task.category,$task.date,true);
         });
@@ -18,7 +19,6 @@ describe('Add task with parameter get from fixture', ()=> {
         cy.clickButtonDelete(4,true);
         cy.clickButtonDelete(1,false);
     });
-     
 })
 
 Cypress.on('uncaught:exception', (err) => {

@@ -1,5 +1,5 @@
-import { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/commands';
-addMatchImageSnapshotCommand();
+//mport { addMatchImageSnapshotCommand } from 'cypress-image-snapshot/commands';
+//addMatchImageSnapshotCommand();
 
 import {
     nameTask,
@@ -10,7 +10,8 @@ import {
     deleteButton,
     completeButton,
     okDelete,
-    cancelDelete
+    cancelDelete,
+    pageDisplay
 } from '../shared/components';
 
 Cypress.Commands.add('addtask', (name,category,date,isImportant) => {
@@ -40,5 +41,11 @@ Cypress.Commands.add('clickButtonDelete', (rownumber,confirm) => {
     }
     else
     cy.get(cancelDelete).click();
+    }
+);
+
+Cypress.Commands.add('clickPageDisplay', (pageNumber) => {
+    var number = pageNumber + (" / page");
+    cy.get(pageDisplay).click().contains(number).click();
     }
 );
