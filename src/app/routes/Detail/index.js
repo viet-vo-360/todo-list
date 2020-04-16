@@ -9,8 +9,9 @@ import {
   CheckCircleOutlined,
 } from "@ant-design/icons";
 import { categories } from "../../constants/CATEGORIES";
-import { getTodoById } from "../../../utils/redux/reducers/selectors";
+import { getTodoById, getTodosState, isDuplicatedTask } from "../../../utils/redux/reducers/selectors";
 import { editTodo } from "../../../utils/redux/action";
+import { successMessage, titleLengthErrorMessage, duplicateErrorMessage } from "../../constants/VALIDATION_MESSAGES";
 
 const { Option } = Select;
 
@@ -28,14 +29,17 @@ const tailLayout = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+  const todos = getTodosState(state);
   const todoItem = getTodoById(state, ownProps.match.params.id)[0];
-  return { todoItem };
+  return { todoItem, todos };
 };
 
-const Detail = ({ todoItem, editTodo }) => {
+const Detail = ({ todoItem, editTodo, todos }) => {
   let itemFound = todoItem;
   const dateFormat = "DD/MM/YYYY";
   const [editMode, setEditMode] = useState(false);
+  const [enableSaveButton, setEnableSaveButton] = useState(false);
+
   const [isImportant, setIsImportant] = useState(todoItem.isImportant);
   const onFinish = (values) => {
     editTodo({
@@ -47,6 +51,87 @@ const Detail = ({ todoItem, editTodo }) => {
     });
     setEditMode(false);
   };
+
+  const checkDuplicatedTask = (result, checkedAttr) => {
+    let checkedTask = {
+      key: todoItem.key,
+      title: title.value,
+      category: category.value,
+      date: date.value
+    };
+
+    checkedTask = { ...checkedTask, ...checkedAttr };
+
+    if (isDuplicatedTask(todos, checkedTask)) {
+      result = duplicateErrorMessage;
+    }
+
+    if (result.validateStatus === 'success' && result.errorMsg === null) {
+      clearAllErrorMessages(result);
+      setEnableSaveButton(true); // enable save button
+    } else {
+      setEnableSaveButton(false); // disable save button
+    }
+
+    return result;
+  };
+
+  const clearAllErrorMessages = (result) => {
+    setTitle({ ...result, value: title.value });
+    setDate({ ...result, value: date.value });
+    setCategory({ ...result, value: category.value });
+  };
+
+  const validateTaskTitle = (title) => {
+    let result = successMessage;
+
+    if (title.length < 5) {
+      result = titleLengthErrorMessage;
+    };
+
+    result = checkDuplicatedTask(result, { title: title });
+
+    return result;
+  };
+
+  const validateCategory = (category) => {
+    let result = successMessage;
+    result = checkDuplicatedTask(result, { category: category });
+
+    return result;
+  };
+
+  const validateDate = (date) => {
+    let result = successMessage;
+    result = checkDuplicatedTask(result, { date: date });
+
+    return result;
+  };
+
+  const onTitleChange = (title) => {
+    setTitle({ ...validateTaskTitle(title), value: title });
+  };
+
+  const onCategoryChange = (category) => {
+    setCategory({ ...validateCategory(category), value: category });
+  };
+
+  const onDateChange = (date) => {
+    var convertDate = moment(date).format(dateFormat);
+    setDate({ ...validateDate(convertDate), value: convertDate });
+  };
+
+  const [title, setTitle] = useState({
+    value: todoItem.title
+  });
+
+  const [date, setDate] = useState({
+    value: todoItem.date
+  });
+
+  const [category, setCategory] = useState({
+    value: todoItem.category
+  });
 
   return (
     <div>
@@ -73,21 +158,26 @@ const Detail = ({ todoItem, editTodo }) => {
           <Form.Item
             label="Task title"
             name="title"
-            rules={[{ required: true, message: "Please input your username!" }]}
+            validateStatus={title.validateStatus}
+            help={title.errorMsg}
           >
-            <Input disabled={!editMode} />
+            <Input disabled={!editMode} onChange={e => onTitleChange(e.target.value)} value={title.value}/>
           </Form.Item>
 
           <Form.Item
             label="Date"
             name="date"
-            rules={[{ required: true, message: "Please pick day!" }]}
+            rules={[{ required: true, message: "Please pick a date!" }]}
+            validateStatus={date.validateStatus}
+            help={date.errorMsg}
           >
             <DatePicker
               id="task-date-picker"
               style={{ width: "100%" }}
               format={dateFormat}
               disabled={!editMode}
+              value={date.value}
+              onChange={onDateChange}
             />
           </Form.Item>
           <Form.Item label="Category">
@@ -96,6 +186,8 @@ const Detail = ({ todoItem, editTodo }) => {
                 style={{ width: "70%" }}
                 name="category"
                 rules={[{ required: true, message: "Please choose category!" }]}
+                validateStatus={category.validateStatus}
+                help={category.errorMsg}
               >
                 <Select
                   id="task-category"
@@ -109,6 +201,8 @@ const Detail = ({ todoItem, editTodo }) => {
                       .toLowerCase()
                       .indexOf(input.toLowerCase()) >= 0
                   }
+                  onChange={onCategoryChange}
+                  value={category.value}
                 >
                   {categories.length > 0 &&
                     categories.map((category, i) => {
@@ -143,7 +237,7 @@ const Detail = ({ todoItem, editTodo }) => {
               >
                 <EditOutlined /> Edit
               </Button>
-              <Button type="primary" htmlType="submit" disabled={!editMode}>
+              <Button type="primary" htmlType="submit" disabled={!editMode || !enableSaveButton}>
                 <CheckCircleOutlined /> Save
               </Button>
             </div>

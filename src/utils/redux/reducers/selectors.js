@@ -21,3 +21,12 @@ export const getTodosByVisibilityFilter = (store, visibilityFilter) => {
       return allTodos;
   }
 };
+
+export const isDuplicatedTask = (todos, todoItem) => {
+  return todos.filter(
+    e => e.key !== todoItem.key
+    && e.title === todoItem.title
+    && e.date === todoItem.date
+    && e.category === todoItem.category
+    && e.completed === 'false').length !== 0
+};
