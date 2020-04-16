@@ -12,6 +12,7 @@ import { categories } from "../../constants/CATEGORIES";
 import { getTodoById, getTodosState, isDuplicatedTask } from "../../../utils/redux/reducers/selectors";
 import { editTodo } from "../../../utils/redux/action";
 import { successMessage, titleLengthErrorMessage, duplicateErrorMessage } from "../../constants/VALIDATION_MESSAGES";
+import { useHistory } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -39,8 +40,9 @@ const Detail = ({ todoItem, editTodo, todos }) => {
   const dateFormat = "DD/MM/YYYY";
   const [editMode, setEditMode] = useState(false);
   const [enableSaveButton, setEnableSaveButton] = useState(false);
-
+  const history = useHistory();
   const [isImportant, setIsImportant] = useState(todoItem.isImportant);
+
   const onFinish = (values) => {
     editTodo({
       ...values,
@@ -50,6 +52,7 @@ const Detail = ({ todoItem, editTodo, todos }) => {
       isChecked: todoItem.isChecked
     });
     setEditMode(false);
+    history.push("/");
   };
 
   const checkDuplicatedTask = (result, checkedAttr) => {
