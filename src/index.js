@@ -6,8 +6,12 @@ import "react-app-polyfill/stable";
 import App from './app/app';
 import configureStore from "./utils/redux/store";
 import { FORM_INITIAL_STATE } from "./app/constants/INITIAL_STATE";
+import { LOCAL_STORAGE_STATE } from "./app/constants/LOCAL_STORAGE";
 
-const store = configureStore(FORM_INITIAL_STATE);
+const localState = localStorage.getItem(LOCAL_STORAGE_STATE);
+const initialTodos = localState != null ? { todos: JSON.parse(localState) } : FORM_INITIAL_STATE;
+
+const store = configureStore(initialTodos);
 
 const Application = () => (
   <Provider store={store}>

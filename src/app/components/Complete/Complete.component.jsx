@@ -4,9 +4,7 @@ import { completeTodo } from "../../../utils/redux/action";
 import { Button } from "antd";
 
 const Complete = ({ record, completeTodo }) => {
-  const [hidden, setHidden] = useState(
-    record.completed === "true" ? true : false
-  );
+  const [hidden, setHidden] = useState(record.completed);
   return (
     <div style={{ display: "inline", marginRight: "5px" }}>
       {hidden ? null : (

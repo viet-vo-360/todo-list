@@ -8,8 +8,8 @@ import Title from "../components/Title/Title.component";
 export const FORM_COLUMNS = [
   {
     title: <SelectAll />,
-    dataIndex: "select",
-    key: "select",
+    dataIndex: "isChecked",
+    key: "isChecked",
     render: (text, record) => {
       return <Select record={record}>{text}</Select>;
     },
@@ -49,7 +49,7 @@ export const FORM_COLUMNS = [
     render: (text, record) => {
       return (
         <>
-          <Complete record={record} />
+          {!record.completed && (<Complete record={record} />)}
           <Delete record={record} />
         </>
       );

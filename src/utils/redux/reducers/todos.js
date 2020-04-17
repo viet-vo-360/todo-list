@@ -10,7 +10,20 @@ import {
   CHECK_ALL_ITEM,
   EDIT_TODO,
 } from "../actionTypes";
+import { LOCAL_STORAGE_STATE } from "../../../app/constants/LOCAL_STORAGE";
+
 const initialState = [];
+
+const saveStateToLocalStorage = (state) => {
+  // remove checked state
+  state = state.map(item => {
+    item.isChecked = false;
+    return item;
+  })
+
+  // save to local storage
+  localStorage.setItem(LOCAL_STORAGE_STATE, JSON.stringify(state));
+}
 
 export default (state = initialState, action) => {
   const { key, title, date, category, isImportant, isChecked } =
@@ -19,7 +32,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO:
       openNotification("bottomLeft", "TODO added");
-
       const todoItem = {
         key: uuidv4(),
         title: title,
@@ -29,11 +41,14 @@ export default (state = initialState, action) => {
         isChecked: false,
         isImportant: isImportant,
       };
-      return state.concat(todoItem);
+
+      state = state.concat(todoItem);
+      saveStateToLocalStorage(state);
+      return state;
 
     case COMPLETE_TODO:
       openNotification("bottomLeft", "TODO completed");
-      return state.map((todo) => {
+      state = state.map((todo) => {
         if (todo.key === key) {
           return {
             ...todo,
@@ -43,6 +58,9 @@ export default (state = initialState, action) => {
           return todo;
         }
       });
+      saveStateToLocalStorage(state);
+      return state;
+
     case COMPLETE_SELECTED_ITEM:
       var seletedItem = state.filter((item) => item.isChecked === true);
 
@@ -52,34 +70,38 @@ export default (state = initialState, action) => {
           state[objIndex].completed = true;
         });
       }
-      return [...state];
+
+      saveStateToLocalStorage(state);
+      return state;
 
     case DELETE_TODO:
       openNotification("bottomLeft", "TODO deleted");
-      return [...state.filter((item) => item.key !== key)];
+      state = state.filter((item) => item.key !== key);
+
+      saveStateToLocalStorage(state);
+      return state;
 
     case DELETE_SELECTED_ITEM:
-      var selectedItem = state.filter((item) => item.isChecked === true);
+      var state = state.filter((item) => item.isChecked !== true);
 
-      if (selectedItem.length > 0) {
-        selectedItem.map((sItem) => {
-          state = state.filter((item) => item.key !== sItem.key);
-        });
-      }
+      saveStateToLocalStorage(state);
       return state;
 
     case CHECK_ITEM:
-      var objIndex = state.findIndex((obj) => obj.key === key);
-      if (objIndex !== -1) {
-        state[objIndex].isChecked = isChecked;
-      }
-      return [...state];
+      state = state.map((item) => {
+        if (item.key === key) {
+          item.isChecked = isChecked;
+        }
+        return item;
+      });
+      return state;
 
     case CHECK_ALL_ITEM:
-      return state.map((item) => {
+      state = state.map((item) => {
         item.isChecked = isChecked;
         return item;
       });
+      return state;
     case EDIT_TODO:
       openNotification("bottomLeft", "TODO edited");
       var objIndex = state.findIndex((obj) => obj.key === key);
@@ -89,7 +111,9 @@ export default (state = initialState, action) => {
         state[objIndex].category = category;
         state[objIndex].isImportant = isImportant;
       }
-      return [...state];
+      saveStateToLocalStorage(state);
+      return state;
+
     default:
       return state;
   }
