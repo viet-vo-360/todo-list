@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\todos.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Data\todos.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="FileContextCore" Version="3.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp.Respository\TodoApp.Respository.csproj" />
+    <ProjectReference Include="..\TodosApp.Data\TodoApp.Data.csproj" />
+    <ProjectReference Include="..\TodosApp.Service\TodoApp.Service.csproj" />
+  </ItemGroup>
+
+
+</Project>

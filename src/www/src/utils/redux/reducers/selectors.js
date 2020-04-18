@@ -1,6 +1,6 @@
 import { VISIBILITY_FILTERS } from "../../../app/constants/VISIBILITY_FILTERS";
 
-export const getTodosState = (store) => store.todos;
+export const getTodosState = (store) => store;
 
 export const getTodoById = (store, id) => {
   const todoItems = getTodos(store);

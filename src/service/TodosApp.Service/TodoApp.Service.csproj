@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon />
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TodoApp.Common\TodoApp.Common.csproj" />
+    <ProjectReference Include="..\TodoApp.Respository\TodoApp.Respository.csproj" />
+    <ProjectReference Include="..\TodosApp.Data\TodoApp.Data.csproj" />
+  </ItemGroup>
+
+</Project>
