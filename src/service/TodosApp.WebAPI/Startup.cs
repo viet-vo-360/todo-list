@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using TodoApp.Respository.Context;
 using TodoApp.Respository.TodoRepository;
 using TodoApp.Service.TodoService;
@@ -28,6 +29,10 @@ namespace TodoApp.WebAPI
             services.AddDbContext<TodoAppContext>(options => options.UseFileContextDatabase(location: @"Data")); ;
             services.AddScoped<ITodoService, TodoService>();
             services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Todo API", Version = "v1" });
+            });
             services.AddAutoMapper(typeof(Startup));
         }
 
@@ -38,6 +43,14 @@ namespace TodoApp.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
 
             app.UseHttpsRedirection();
 
