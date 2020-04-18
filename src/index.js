@@ -11,7 +11,7 @@ import { LOCAL_STORAGE_STATE } from "./app/constants/LOCAL_STORAGE";
 const localState = localStorage.getItem(LOCAL_STORAGE_STATE);
 const initialTodos = localState != null ? { todos: JSON.parse(localState) } : FORM_INITIAL_STATE;
 
-const store = configureStore(initialTodos);
+export const store = configureStore(initialTodos);
 
 const Application = () => (
   <Provider store={store}>

@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { deleteSelectedTodo } from "../../../utils/redux/action";
 import { Popconfirm, Button } from 'antd';
 
-const DeleteBySelected = ({deleteSelectedTodo}) => {
+const DeleteBySelected = ({deleteSelectedTodo, selectedRowKeys}) => {
   return (
     <Popconfirm
       title="Are you sure to delete these tasks?"
-      onConfirm={deleteSelectedTodo}
+      onConfirm={() => deleteSelectedTodo({selectedRowKeys})}
     >
       <Button href="#delete"
         className="btn-delete"

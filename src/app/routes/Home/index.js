@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Table, Row, Col } from "antd";
 import { FORM_COLUMNS } from "../../constants/FORM_COLUMNS";
@@ -7,7 +7,6 @@ import { getTodosByVisibilityFilter } from "../../../utils/redux/reducers/select
 import TodoForm from "../../components/Form/Form.component";
 import CompleteBySelected from "../../components/Complete/CompleteBySelected.component";
 import DeleteBySelected from "../../components/Delete/DeleteBySelected.component";
-
 const mapStateToProps = (state) => {
   const { visibilityFilter } = state;
   const todos = getTodosByVisibilityFilter(state, visibilityFilter);
@@ -16,14 +15,38 @@ const mapStateToProps = (state) => {
 
 const TodoList = ({ todos }) => {
   const pageSize = 5;
-  const currentPage = Math.ceil(todos.length / pageSize);
-  const tablePagination = {
-    pageSizeOptions: ["5", "10", "15"],
-    defaultPageSize: pageSize,
-    current: currentPage,
-    showSizeChanger: true,
-    showQuickJumper: true,
+  const [selectedRowKeys, setSelectedRowKeys] = useState();
+  const [currentPage, setCurrentPage] = useState(
+    Math.ceil(todos.length / pageSize)
+  );
+
+  const onSelectChange = (selectedRowKeys) => {
+    setSelectedRowKeys(selectedRowKeys);
   };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+
+  const tablePagination = {
+    pageSize: pageSize,
+    defaultCurrent: 1,
+    current: currentPage,
+    hideOnSinglePage: true,
+  };
+
+  const handlePagination = (pagination) => {
+    const { current } = pagination;
+    setCurrentPage(current);
+  };
+
+  var notCompleteSelected, itemSelected;
+  if (selectedRowKeys && selectedRowKeys.length > 0) {
+    itemSelected = todos.filter(item => selectedRowKeys.includes(item.key));
+    notCompleteSelected = itemSelected.filter(item => !item.completed);
+
+  }
   return (
     <>
       {todos.length > 0 && (
@@ -33,18 +56,22 @@ const TodoList = ({ todos }) => {
               rowClassName={(record) =>
                 record.isImportant ? "important-task" : ""
               }
+              rowSelection={rowSelection}
               dataSource={todos}
               columns={FORM_COLUMNS}
               pagination={tablePagination}
+              onChange={handlePagination}
             />
           </Col>
         </Row>
       )}
-      {todos.length > 0 && todos.filter((item) => item.isChecked).length > 0 && (
+      {itemSelected && itemSelected.length > 0 && (
         <Row type="flex" justify="right">
           <Col xs={24} sm={24} md={24} lg={20} xl={20}>
-            <CompleteBySelected />
-            <DeleteBySelected />
+            { notCompleteSelected && notCompleteSelected.length > 0 && (
+              <CompleteBySelected selectedRowKeys={ selectedRowKeys } />
+            )}
+            <DeleteBySelected selectedRowKeys={ selectedRowKeys } />
           </Col>
         </Row>
       )}

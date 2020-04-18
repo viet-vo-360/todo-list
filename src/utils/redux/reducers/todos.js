@@ -26,8 +26,7 @@ const saveStateToLocalStorage = (state) => {
 }
 
 export default (state = initialState, action) => {
-  const { key, title, date, category, isImportant, isChecked } =
-    action.payload || {};
+  const { key, title, date, category, isImportant, isChecked, selectedRowKeys } = action.payload || {};
 
   switch (action.type) {
     case ADD_TODO:
@@ -62,10 +61,10 @@ export default (state = initialState, action) => {
       return state;
 
     case COMPLETE_SELECTED_ITEM:
-      var seletedItem = state.filter((item) => item.isChecked === true);
+      var completeSelectedItem = state.filter((item) => selectedRowKeys.includes(item.key));
 
-      if (seletedItem.length > 0) {
-        seletedItem.map((item) => {
+      if (completeSelectedItem.length > 0) {
+        completeSelectedItem.map((item) => {
           var objIndex = state.findIndex((obj) => obj.key === item.key);
           state[objIndex].completed = true;
         });
@@ -82,8 +81,7 @@ export default (state = initialState, action) => {
       return state;
 
     case DELETE_SELECTED_ITEM:
-      var state = state.filter((item) => item.isChecked !== true);
-
+      state = state.filter((item) => !selectedRowKeys.includes(item.key));
       saveStateToLocalStorage(state);
       return state;
 

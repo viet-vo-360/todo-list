@@ -19,9 +19,9 @@ export const completeTodo = (key) => ({
   payload: key,
 });
 
-export const completeSelectedTodo = () => ({
+export const completeSelectedTodo = (selectedRowKeys) => ({
   type: COMPLETE_SELECTED_ITEM,
-  payload: "",
+  payload: selectedRowKeys,
 });
 
 export const deleteTodo = (key) => ({
@@ -29,9 +29,9 @@ export const deleteTodo = (key) => ({
   payload: key,
 });
 
-export const deleteSelectedTodo = () => ({
+export const deleteSelectedTodo = (selectedRowKeys) => ({
   type: DELETE_SELECTED_ITEM,
-  payload: "",
+  payload: selectedRowKeys,
 });
 
 export const checkItem = (content) => ({
