@@ -33,7 +33,7 @@ namespace TodoApp.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Todo API", Version = "v1" });
             });
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(c => c.AddProfile<AutoMapping>(), typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
