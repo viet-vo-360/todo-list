@@ -1,6 +1,6 @@
 import { VISIBILITY_FILTERS } from "../../../app/constants/VISIBILITY_FILTERS";
 
-export const getTodosState = (store) => store;
+export const getTodosState = (store) => store.todos;
 
 export const getTodoById = (store, id) => {
   const todoItems = getTodos(store);
@@ -28,5 +28,5 @@ export const isDuplicatedTask = (todos, todoItem) => {
     && e.title === todoItem.title
     && e.date === todoItem.date
     && e.category === todoItem.category
-    && e.completed === 'false').length !== 0
+    && !e.completed).length !== 0
 };

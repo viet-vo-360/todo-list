@@ -2,14 +2,15 @@ import React from 'react';
 import { Col, Form, Input } from 'antd';
 import { TagsOutlined } from '@ant-design/icons';
 
-export const FormInput = ({setTitle}) => (
+export const FormInput = ({setTitle, value}) => (
   <Col xs={24} sm={24} md={24} lg={12} xl={12}>
     <Form.Item label="Title">
       <Input
         prefix={
           <TagsOutlined /> // Icon
         }
-        id="task-tilte"
+        id="task-title"
+        value={value}
         onChange={e => {
           setTitle(e.target.value);
         }}

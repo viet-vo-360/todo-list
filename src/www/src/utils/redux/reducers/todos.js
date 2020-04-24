@@ -13,8 +13,7 @@ import {
 const initialState = [];
 
 export default (state = initialState, action) => {
-  const { key, title, date, category, isImportant, isChecked } =
-    action.payload || {};
+  const { key, title, date, category, isImportant, isChecked, selectedRowKeys } = action.payload || {};
 
   switch (action.type) {
     case ADD_TODO:
@@ -44,10 +43,10 @@ export default (state = initialState, action) => {
         }
       });
     case COMPLETE_SELECTED_ITEM:
-      var seletedItem = state.filter((item) => item.isChecked === true);
+      var completeSelectedItem = state.filter((item) => selectedRowKeys.includes(item.key));
 
-      if (seletedItem.length > 0) {
-        seletedItem.map((item) => {
+      if (completeSelectedItem.length > 0) {
+        completeSelectedItem.map((item) => {
           var objIndex = state.findIndex((obj) => obj.key === item.key);
           state[objIndex].completed = true;
         });
@@ -59,13 +58,7 @@ export default (state = initialState, action) => {
       return [...state.filter((item) => item.key !== key)];
 
     case DELETE_SELECTED_ITEM:
-      var selectedItem = state.filter((item) => item.isChecked === true);
-
-      if (selectedItem.length > 0) {
-        selectedItem.map((sItem) => {
-          state = state.filter((item) => item.key !== sItem.key);
-        });
-      }
+      state = state.filter((item) => !selectedRowKeys.includes(item.key));
       return state;
 
     case CHECK_ITEM:

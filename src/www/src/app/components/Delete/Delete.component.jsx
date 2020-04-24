@@ -7,9 +7,7 @@ const Delete = ({ record, deleteTodo }) => {
   return (
     <Confirm
       title="Are you sure you want to delete?"
-      onConfirm={() => {
-        deleteTodo({key : record.key});
-      }}
+      onConfirm={() =>  deleteTodo({key : record.key})}
     >
       <Button
         href="#delete"

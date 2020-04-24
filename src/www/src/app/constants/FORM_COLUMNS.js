@@ -1,20 +1,9 @@
 import React from "react";
 import Complete from "../components/Complete/Complete.component";
 import Delete from "../components/Delete/Delete.component";
-import Select from "../components/Form/Select.component";
-import SelectAll from "../components/Form/SelectAll.component";
 import Title from "../components/Title/Title.component";
 
 export const FORM_COLUMNS = [
-  {
-    title: <SelectAll />,
-    dataIndex: "select",
-    key: "select",
-    render: (text, record) => {
-      return <Select record={record}>{text}</Select>;
-    },
-  },
-
   {
     title: "Title",
     dataIndex: "title",
@@ -49,7 +38,7 @@ export const FORM_COLUMNS = [
     render: (text, record) => {
       return (
         <>
-          <Complete record={record} />
+          {!record.completed && (<Complete record={record} />)}
           <Delete record={record} />
         </>
       );

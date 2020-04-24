@@ -24,9 +24,15 @@ const TodoForm = (props) => {
 
   const formSubmit = () => {
     if (title && date && category && title.length >= 5) {
-      if (props.todos.filter(e => e.title === title && e.date === date && e.category === category.value && e.completed === 'false').length === 0) {
+      if (props.todos.filter(e => e.title === title && e.date === date && e.category === category.value && !e.completed).length === 0) {
         props.addTodo({title, date, category, isImportant});
         setExistedError(false);
+
+        // Clear values
+        setTitle("");
+        setDate(null);
+        setImportant(false);
+        setCategory(null);
       } else {
         setExistedError(true);
       }
@@ -42,7 +48,7 @@ const TodoForm = (props) => {
           Add TODO item
         </Title>
         <Row type="flex" justify="center">
-          <FormInput data-testid="todo" setTitle={setTitle} />
+          <FormInput data-testid="todo" setTitle={setTitle} value={title}/>
           {title && title.length >= 5 ? (
             <>
               <Calendar setDate={setDate} />
