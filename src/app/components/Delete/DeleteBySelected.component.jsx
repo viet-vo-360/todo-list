@@ -1,0 +1,24 @@
+import React from 'react';
+import { connect } from "react-redux";
+import { deleteSelectedTodo } from "../../../utils/redux/action";
+import { Popconfirm, Button } from 'antd';
+
+const DeleteBySelected = ({deleteSelectedTodo, selectedRowKeys}) => {
+  return (
+    <Popconfirm
+      title="Are you sure to delete these tasks?"
+      onConfirm={() => deleteSelectedTodo({selectedRowKeys})}
+    >
+      <Button href="#delete"
+        className="btn-delete"
+        type="primary"
+        danger
+        style={{ width: '300px' }}
+      >
+        Delete item selected
+      </Button>
+    </Popconfirm>
+  );
+};
+
+export default connect(null, { deleteSelectedTodo })(DeleteBySelected);

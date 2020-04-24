@@ -1,0 +1,14 @@
+{    
+    "name": "Do the same thing with new para",    
+    "category": "Shopping",
+    "date": "16/04/2020",
+    "isImportant": true,
+    "namesecond": "Try with second parameters",    
+    "categorysecond": "Home",
+    "datesecond": "16/04/2020",
+    "namethird": "Try again with third parameters",    
+    "categorythird": "Other",
+    "datethird": "16/04/2020"
+
+
+}
