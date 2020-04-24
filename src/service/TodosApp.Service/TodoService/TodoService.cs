@@ -28,10 +28,10 @@ namespace TodoApp.Service.TodoService
             try
             {
                 _todoRepository.Remove(existingTodo);
-
-                return new TodoActionResponse(existingTodo);
+                
                 // save change
                 await _todoRepository.CompleteAsync();
+                return new TodoActionResponse(existingTodo);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace TodoApp.Service.TodoService
                 // Check task is duplicate
                 var isDuplicate = await _todoRepository.IsDuplicated(todo);
                 
-                if (!isDuplicate)
+                if (isDuplicate)
                 {
                     return new TodoActionResponse($"An error occurred when saving todo: Todo item is duplicated");
                 }
@@ -82,14 +82,7 @@ namespace TodoApp.Service.TodoService
                 {
                     return new TodoActionResponse($"An error occurred when update todo: Todo item not found");
                 }
-                // Check task is duplicate
-                var isDuplicate = await _todoRepository.IsDuplicated(todo);
-
-                if (!isDuplicate)
-                {
-                    return new TodoActionResponse($"An error occurred when update todo: Todo item is duplicated");
-                }
-
+               
                 // update task
                 existingToDo.Title = todo.Title;
                 existingToDo.Category = todo.Category;
@@ -97,7 +90,7 @@ namespace TodoApp.Service.TodoService
                 existingToDo.IsImportant = todo.IsImportant;
                 existingToDo.Completed = todo.Completed;
 
-                _todoRepository.Update(todo);
+                _todoRepository.Update(existingToDo);
                 // save change
                 await _todoRepository.CompleteAsync();
 

@@ -1,13 +1,8 @@
-﻿using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System;
 
-namespace TodoApp.Data
+namespace TodoApp.Data.Resources
 {
-    public class Todo
+    public class TodoResource
     {
         public string Key { get; set; }
         public string Title { get; set; }

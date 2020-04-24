@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TodoApp.Respository.Context;
+﻿using TodoApp.Respository.Context;
 
 namespace TodoApp.Respository.TodoRepository
 {

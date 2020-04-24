@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Data;
-using TodoApp.Common.Helpers;
-using FileContextCore;
 
 namespace TodoApp.Respository.Context
 {

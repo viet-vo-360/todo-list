@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TodoApp.Data;
 using TodoApp.Respository.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace TodoApp.Respository.TodoRepository
 {
@@ -30,7 +28,7 @@ namespace TodoApp.Respository.TodoRepository
             await _context.Todos.AddAsync(todo);
         }
 
-        public  void Update(Todo todo)
+        public void Update(Todo todo)
         {
             _context.Todos.Update(todo);
         }
@@ -43,7 +41,7 @@ namespace TodoApp.Respository.TodoRepository
         public async Task<bool> IsDuplicated(Todo todo)
         {
             return await _context.Todos.FirstOrDefaultAsync(item => item.Title == todo.Title && item.Category == todo.Category && item.Date == todo.Date && !item.Completed) != null;
-            
+
         }
 
         public async Task CompleteAsync()
