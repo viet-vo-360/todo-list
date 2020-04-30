@@ -1,5 +1,6 @@
 # todo-list
-This repository is used for Cypress Testing
+This repository is used for Cypress Testing.
+To start, please create new branch from ```develop```
 
 # Install node module (Node version required: 8.0 or above)
 ```npm install```
